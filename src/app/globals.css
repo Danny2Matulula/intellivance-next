@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════
+   STRATA Design System — Intellivance
+   Editorial Brutalism meets High-End Tech
+   ═══════════════════════════════════════ */
+
+/* --- Design Tokens --- */
+:root {
+  --bg-main: #EAEAE5;
+  --bg-card: #F2F2F0;
+  --text-main: #1A1A1A;
+  --text-dim: #666666;
+  --line: #C4C4C0;
+  --accent: #2A2A2A;
+  --highlight: #FFFFFF;
+}
+
+@theme inline {
+  --color-background: var(--bg-main);
+  --color-foreground: var(--text-main);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+/* --- Base --- */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Utility Classes --- */
+.mono {
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+}
+
+.border-theme {
+  border-color: var(--line);
+}
+
+.bg-theme {
+  background-color: var(--bg-main);
+}
+
+.grid-bg {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: -1px -1px;
+}
+
+.display-text {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+/* --- Components --- */
+.btn-tech {
+  background: transparent;
+  border: 1px solid var(--text-main);
+  color: var(--text-main);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-jetbrains-mono), 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-tech:hover {
+  background: var(--text-main);
+  color: var(--bg-main);
+}
+
+/* --- Panel --- */
+.panel {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel:hover {
+  border-color: var(--text-main);
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Market Row --- */
+.market-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.market-row:hover {
+  background: #FFFFFF;
+}
+
+.market-row:last-child {
+  border-bottom: none;
+}
+
+/* --- Animations --- */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blink {
+  animation: blinkAnim 1s step-end infinite;
+}
+
+@keyframes blinkAnim {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes tickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbb;
+}
+
+/* ═══════════════════════════════════════
+   Intellivance Logo — Hover Animation
+   Sequential bar light-up + iris glow
+   ═══════════════════════════════════════ */
+
+.iv-logo .iv-bar {
+  transition: fill 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.iv-logo .iv-iris {
+  transition: fill 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    filter 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Staggered delays — bottom bar first */
+.iv-logo .iv-bar-1 {
+  transition-delay: 0ms;
+}
+
+.iv-logo .iv-bar-2 {
+  transition-delay: 60ms;
+}
+
+.iv-logo .iv-bar-3 {
+  transition-delay: 120ms;
+}
+
+.iv-logo .iv-bar-4 {
+  transition-delay: 180ms;
+}
+
+.iv-logo .iv-bar-5 {
+  transition-delay: 240ms;
+}
+
+.iv-logo .iv-iris {
+  transition-delay: 320ms;
+}
+
+/* Hover state — bars solidify to black with dark glow */
+.iv-logo-link:hover .iv-bar {
+  fill: #000000;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.35));
+}
+
+/* Iris glow pulse */
+.iv-logo-link:hover .iv-iris {
+  fill: #000000;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 14px rgba(0, 0, 0, 0.2));
+}
+
+/* Reset delays on mouse-out for instant fade back */
+.iv-logo-link:not(:hover) .iv-bar,
+.iv-logo-link:not(:hover) .iv-iris {
+  transition-delay: 0ms;
+}
