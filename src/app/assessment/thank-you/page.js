@@ -1,27 +1,32 @@
+"use client";
+
+import { useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Check, ArrowRight } from "lucide-react";
-import Script from "next/script";
-
-export const metadata = {
-    title: "Assessment Received | Intellivance",
-    description: "Your operations diagnostic has been received. We're building your custom AI roadmap.",
-    robots: "noindex, nofollow",
-};
 
 export default function ThankYouPage() {
     const gadsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
     const conversionLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
 
+    useEffect(() => {
+        // Google Ads Conversion
+        if (gadsId && conversionLabel && typeof window !== "undefined" && window.gtag) {
+            window.gtag("event", "conversion", {
+                send_to: `${gadsId}/${conversionLabel}`,
+            });
+        }
+
+        // Microsoft Advertising UET Conversion
+        if (typeof window !== "undefined") {
+            window.uetq = window.uetq || [];
+            window.uetq.push("event", "lead", {});
+        }
+    }, [gadsId, conversionLabel]);
+
     return (
         <div className="selection:bg-neutral-900 selection:text-white">
-            {/* Google Ads Conversion Tracking */}
-            {gadsId && conversionLabel && (
-                <Script id="gtag-conversion" strategy="afterInteractive">
-                    {`gtag('event', 'conversion', { 'send_to': '${gadsId}/${conversionLabel}' });`}
-                </Script>
-            )}
             <Navbar />
             <main className="pt-16 min-h-screen flex items-center justify-center px-6 bg-[#EAEAE5] relative overflow-hidden">
                 <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>

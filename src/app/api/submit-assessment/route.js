@@ -127,7 +127,7 @@ async function sendGHLEmail(contactId, subject, html, pitToken) {
 export async function POST(req) {
     try {
         const body = await req.json();
-        const { token, formData, step, completed, honeypot } = body;
+        const { token, formData, step, completed, honeypot, utmData } = body;
 
         if (honeypot && honeypot.length > 0) {
             return NextResponse.json({ success: true }, { status: 200 });
@@ -161,6 +161,13 @@ export async function POST(req) {
                         current_step: step,
                         is_completed: completed || false,
                         updated_at: new Date().toISOString(),
+                        // UTM tracking
+                        utm_source: utmData?.utm_source || null,
+                        utm_medium: utmData?.utm_medium || null,
+                        utm_campaign: utmData?.utm_campaign || null,
+                        utm_term: utmData?.utm_term || null,
+                        utm_content: utmData?.utm_content || null,
+                        click_id: utmData?.gclid || utmData?.msclkid || null,
                     }, { onConflict: 'resume_token' });
 
                 if (error) console.error('Supabase error:', error);
@@ -178,6 +185,13 @@ export async function POST(req) {
                 if (formData.timeline === 'urgent') tags.push('urgent-timeline');
                 if (formData.industry) tags.push(`industry-${formData.industry}`);
 
+                // Build dynamic source from UTM data
+                const utmSource = utmData?.utm_source || '';
+                const utmMedium = utmData?.utm_medium || '';
+                const source = utmSource && utmMedium
+                    ? `${utmSource.charAt(0).toUpperCase() + utmSource.slice(1)} / ${utmMedium.toUpperCase()}`
+                    : 'Intellivance Assessment Flow';
+
                 const ghlPayload = {
                     locationId: GHL_LOCATION,
                     email: formData.email.toLowerCase().trim(),
@@ -185,7 +199,7 @@ export async function POST(req) {
                     phone: formData.phone || undefined,
                     website: formData.website || undefined,
                     tags,
-                    source: 'Intellivance Assessment Flow',
+                    source,
                 };
                 Object.keys(ghlPayload).forEach(k => ghlPayload[k] === undefined && delete ghlPayload[k]);
 

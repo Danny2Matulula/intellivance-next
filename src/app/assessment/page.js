@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, Shield, Mail } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useUTM, utmToQueryString } from '@/hooks/useUTM';
 
 // --- Token / Session Management ---
 const TOKEN_KEY = 'intellivance_assessment_token';
@@ -46,6 +47,7 @@ export default function AssessmentPage() {
     const [submitted, setSubmitted] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [honeypot, setHoneypot] = useState('');
+    const utmData = useUTM();
 
     const [formData, setFormData] = useState({
         industry: '',
@@ -105,7 +107,8 @@ export default function AssessmentPage() {
                     formData,
                     step: isCompleted ? TOTAL_STEPS : step,
                     completed: isCompleted,
-                    honeypot: honeypot
+                    honeypot: honeypot,
+                    utmData,
                 })
             });
         } catch (e) {
@@ -139,7 +142,7 @@ export default function AssessmentPage() {
         await syncWithBackend(true);
         setTimeout(() => {
             clearSession();
-            window.location.href = '/assessment/thank-you';
+            window.location.href = '/assessment/thank-you' + utmToQueryString(utmData);
         }, 800);
     };
 
