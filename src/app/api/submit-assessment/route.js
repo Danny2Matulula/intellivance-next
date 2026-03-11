@@ -26,6 +26,11 @@ const CF = {
     TEAM_SIZE: 'RDDn0RxYhQoaf8mLSrdR',
     RESUME_LINK: 'i2Dj1ynhjtAdnLuUKc8w',
     WEEKLY_WORKFLOW: 'sMGmeoPAcx1VpXJoswdv',
+    // UTM Attribution
+    UTM_SOURCE: 'bbFDlherPsgKzn6EznHH',
+    UTM_MEDIUM: '9HL9S6QRlF7xW1R4udoK',
+    UTM_CAMPAIGN: 'Qgwt9WzZM3iHveY4nmnM',
+    UTM_CLICK_ID: 'DfXPKUmtAxRMuVvsi80N',
 };
 
 // ── Email Templates ────────────────────────────────────────────────────────
@@ -230,6 +235,13 @@ export async function POST(req) {
                         if (formData.teamSize) customFieldValues.push({ id: CF.TEAM_SIZE, value: formData.teamSize });
                         if (formData.moneyLoss) customFieldValues.push({ id: CF.MONEY_LOSS, value: formData.moneyLoss });
                         if (formData.weeklyWorkflow) customFieldValues.push({ id: CF.WEEKLY_WORKFLOW, value: formData.weeklyWorkflow });
+
+                        // UTM Attribution — write to GHL so leads are filterable by source
+                        if (utmData?.utm_source) customFieldValues.push({ id: CF.UTM_SOURCE, value: utmData.utm_source });
+                        if (utmData?.utm_medium) customFieldValues.push({ id: CF.UTM_MEDIUM, value: utmData.utm_medium });
+                        if (utmData?.utm_campaign) customFieldValues.push({ id: CF.UTM_CAMPAIGN, value: utmData.utm_campaign });
+                        const clickId = utmData?.gclid || utmData?.msclkid;
+                        if (clickId) customFieldValues.push({ id: CF.UTM_CLICK_ID, value: clickId });
 
                         await fetch(`${GHL_API}/contacts/${contactId}`, {
                             method: 'PUT',
