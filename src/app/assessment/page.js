@@ -227,7 +227,7 @@ export default function AssessmentPage() {
                 {[
                     { step: "01", title: "Confirmation email sent", desc: "Check your inbox — you'll receive a confirmation with a summary of your responses.", time: "Now" },
                     { step: "02", title: "Operations analysis begins", desc: "We're running a full analysis of your workflow — identifying bottlenecks, wasted hours, and opportunities to put AI to work.", time: "Within 1 hour" },
-                    { step: "03", title: "Custom roadmap delivered", desc: "Your operational roadmap lands in your inbox. It maps exactly where you're losing time and money, with specific solutions.", time: "Within 48 hours" }
+                    { step: "03", title: "Roadmap & SEO Report delivered", desc: "Your operational roadmap and competitor SEO teardown land in your inbox. It maps exactly where you're losing time, money, and traffic, with specific solutions.", time: "Within 48 hours" }
                 ].map((item, i) => (
                     <div key={i} className="grid grid-cols-[60px_1fr_auto] gap-6 py-6 border-t border-theme">
                         <div className="mono text-[10px] text-neutral-400 uppercase tracking-widest pt-1">{item.step}</div>
@@ -317,7 +317,7 @@ export default function AssessmentPage() {
                             <p className="text-[16px] font-medium text-neutral-900">We&apos;re analyzing your inputs.</p>
                         </div>
                         <p className="text-[14px] text-neutral-600 leading-relaxed">
-                            We're building a custom operations blueprint based on what you described. Where should we send the final report?
+                            We're building a custom operations blueprint and an SEO/competitor teardown based on what you described. Where should we send the final report?
                         </p>
                         <p className="text-[13px] text-neutral-500 leading-relaxed bg-[#FAFAF8] p-4 border border-theme">
                             We&apos;ll also save your progress here so you don&apos;t lose your work if you get pulled away.
@@ -374,7 +374,7 @@ export default function AssessmentPage() {
                             <div>
                                 <label className={labelClass}>Phone <span className="text-neutral-400 normal-case tracking-normal text-[12px] ml-1">(optional)</span></label>
                                 <input type="tel" value={formData.phone} onChange={e => updateField('phone', e.target.value)} placeholder="(555) 000-0000" className={inputClass} />
-                                <p className="text-[12px] text-neutral-500 mt-2">We&apos;ll include a site audit in your roadmap if you share your URL</p>
+                                <p className="text-[12px] text-neutral-500 mt-2">We need your URL to run the free SEO and competitor analysis report.</p>
                             </div>
                         </div>
                     </div>
@@ -414,17 +414,17 @@ export default function AssessmentPage() {
     return (
         <div className="selection:bg-neutral-900 selection:text-white">
             <Navbar />
-            <main className="pt-16 min-h-screen flex items-center justify-center px-6 bg-[#EAEAE5] relative overflow-hidden">
+            <main className="pt-16 min-h-screen flex items-center justify-center px-4 sm:px-6 bg-[#EAEAE5] relative overflow-hidden">
                 <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
-                <div className="max-w-2xl w-full relative z-10 py-20 min-h-[600px]">
+                <div className="max-w-2xl w-full relative z-10 py-8 sm:py-14 lg:py-20 min-h-0 lg:min-h-[600px]">
 
                     {/* Outer Form Container */}
-                    <div className="bg-white border border-theme p-8 lg:p-12 shadow-sm">
+                    <div className="bg-white border border-theme p-5 sm:p-8 lg:p-12 shadow-sm">
 
                         {processing ? renderProcessing() : submitted ? renderSubmitted() : (
                             <>
                                 {/* Progress header */}
-                                <div className="mb-10">
+                                <div className="mb-6 sm:mb-10">
                                     <div className="flex items-center justify-between mb-3">
                                         <span className="mono text-[10px] text-neutral-500 uppercase tracking-widest">
                                             Step {step} of {TOTAL_STEPS}
@@ -439,7 +439,7 @@ export default function AssessmentPage() {
                                 </div>
 
                                 <AnimatePresence mode="wait">
-                                    <motion.h3 key={`heading-${step}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.25 }} className="text-2xl lg:text-3xl font-normal tracking-tight text-neutral-900 mb-8">
+                                    <motion.h3 key={`heading-${step}`} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.25 }} className="text-xl sm:text-2xl lg:text-3xl font-normal tracking-tight text-neutral-900 mb-4 sm:mb-8">
                                         {stepHeadings[step]}
                                     </motion.h3>
                                 </AnimatePresence>
@@ -450,7 +450,7 @@ export default function AssessmentPage() {
                                     </motion.div>
                                 </AnimatePresence>
 
-                                <div className="flex items-center justify-between mt-10 pt-6 border-t border-theme">
+                                <div className="flex items-center justify-between mt-6 sm:mt-10 pt-4 sm:pt-6 border-t border-theme">
                                     {step > 1 ? (
                                         <button onClick={() => navigateStep(step - 1)} className="flex items-center gap-2 mono text-[10px] text-neutral-500 uppercase tracking-widest hover:text-neutral-900 transition-colors">
                                             <ArrowLeft className="w-3.5 h-3.5" /> Back

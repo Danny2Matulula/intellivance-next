@@ -134,12 +134,12 @@ export default function Home() {
 
       <main className="pt-16">
         {/* ═══════════════  HERO  ═══════════════ */}
-        <section className="relative min-h-[85vh] w-full border-b border-theme flex flex-col lg:flex-row">
+        <section className="relative min-h-0 lg:min-h-[85vh] w-full border-b border-theme flex flex-col lg:flex-row">
           {/* Left — Headline */}
           <div className="w-full lg:w-2/3 p-6 lg:p-12 flex flex-col justify-center gap-10 border-r border-theme relative overflow-hidden bg-theme">
             <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
 
-            <div className="relative z-10 pt-12">
+            <div className="relative z-10 pt-6 sm:pt-12">
               <div className="mono text-xs mb-6 text-neutral-500 flex items-center gap-2">
                 <span>[ INTELLIGENT_OPERATIONS ]</span>
                 <div className="h-px w-12 bg-neutral-400"></div>
@@ -165,7 +165,7 @@ export default function Home() {
               className="relative z-10 max-w-lg reveal-up"
               style={{ animationDelay: "0.3s" }}
             >
-              <p className="text-lg text-neutral-600 leading-relaxed mb-8">
+              <p className="text-base sm:text-lg text-neutral-600 leading-relaxed mb-6 sm:mb-8">
                 The businesses pulling ahead aren&apos;t adding headcount — they&apos;re
                 running AI systems that handle the work no one should be doing
                 by hand. We build those systems. Get a free operations roadmap
