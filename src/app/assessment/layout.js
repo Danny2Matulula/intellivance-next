@@ -1,7 +1,7 @@
 export const metadata = {
     title: "Free Operations Assessment",
     description:
-        "Take a free 3-minute assessment and receive a custom AI operations roadmap in 48 hours. No call, no credit card required.",
+        "Take a free 3-minute assessment and receive a custom AI operations roadmap, plus a free SEO and competitor analysis report in 48 hours.",
     alternates: {
         canonical: "https://intellivance.ai/assessment",
     },
@@ -9,7 +9,7 @@ export const metadata = {
         type: "website",
         title: "Free Operations Assessment | Intellivance",
         description:
-            "Take a free 3-minute assessment and receive a custom AI operations roadmap in 48 hours.",
+            "Take a free 3-minute assessment and receive a custom AI operations roadmap, plus a free SEO and competitor analysis report in 48 hours.",
         images: [
             {
                 url: "/og-image.png",
@@ -23,7 +23,7 @@ export const metadata = {
         card: "summary_large_image",
         title: "Free Operations Assessment | Intellivance",
         description:
-            "Take a free 3-minute assessment and receive a custom AI operations roadmap in 48 hours.",
+            "Take a free 3-minute assessment and receive a custom AI operations roadmap, plus a free SEO and competitor analysis report in 48 hours.",
         images: ["/og-image.png"],
     },
 };

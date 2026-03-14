@@ -150,6 +150,13 @@ export async function POST(req) {
         if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
             try {
                 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+                // Build scored answers object if any q1-q6 answers exist
+                const scoredAnswers = {};
+                ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(q => {
+                    if (formData[q]) scoredAnswers[q] = formData[q];
+                });
+                const hasScored = Object.keys(scoredAnswers).length > 0;
+
                 const { error } = await supabase
                     .from('assessments')
                     .upsert({
@@ -166,6 +173,8 @@ export async function POST(req) {
                         current_step: step,
                         is_completed: completed || false,
                         updated_at: new Date().toISOString(),
+                        // Scored assessment answers (q1-q6 stored as JSON)
+                        scored_answers: hasScored ? JSON.stringify(scoredAnswers) : null,
                         // UTM tracking
                         utm_source: utmData?.utm_source || null,
                         utm_medium: utmData?.utm_medium || null,

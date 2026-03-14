@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="145 90 110 340" width="32" height="32">
+  <!-- Triangle iris -->
+  <polygon points="200,110 232,165 168,165" fill="#1A1A1A" />
+  <!-- Stacked bars — bottom to top -->
+  <rect x="173" y="225" width="54" height="30" rx="4" fill="#5A5A5A" />
+  <rect x="176" y="265" width="48" height="30" rx="4" fill="#4A4A4A" />
+  <rect x="179" y="305" width="42" height="30" rx="4" fill="#3A3A3A" />
+  <rect x="182" y="345" width="36" height="30" rx="4" fill="#2A2A2A" />
+  <rect x="185" y="385" width="30" height="30" rx="4" fill="#1A1A1A" />
+</svg>

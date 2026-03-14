@@ -193,7 +193,7 @@ export default function Home() {
             <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
             <div className="relative z-10 flex flex-col h-full">
               {/* Top stat */}
-              <div className="bg-white/80 backdrop-blur border-b border-theme p-4 flex items-center justify-between">
+              <div className="bg-white/80 backdrop-blur border-b border-theme p-4 flex items-center justify-between cursor-default select-none">
                 <div>
                   <div className="mono text-[10px] text-neutral-500 mb-1">
                     TOTAL VALUE CREATED
@@ -241,7 +241,7 @@ export default function Home() {
               </div>
 
               {/* Hours by vertical */}
-              <div className="bg-white/80 backdrop-blur border-b border-theme p-4">
+              <div className="bg-white/80 backdrop-blur border-b border-theme p-4 cursor-default select-none">
                 <div className="mono text-[10px] text-neutral-500 mb-3">
                   HRS/WK RECOVERED BY VERTICAL
                 </div>
@@ -267,7 +267,7 @@ export default function Home() {
               </div>
 
               {/* Bottom stats */}
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 cursor-default select-none">
                 <div className="bg-white/80 backdrop-blur border-r border-theme p-3">
                   <div className="mono text-[10px] text-neutral-500 mb-1">
                     ENGAGEMENTS
@@ -354,15 +354,19 @@ export default function Home() {
               <p className="text-sm text-neutral-600 leading-relaxed">
                 {step.desc}
               </p>
-              <div className="mt-6 w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center group-hover:bg-black group-hover:border-black group-hover:text-white transition-all">
+              <Link
+                href="/assessment"
+                className="mt-6 inline-flex items-center gap-2 mono text-[10px] uppercase tracking-wider text-neutral-500 group-hover:text-neutral-900 transition-colors"
+              >
+                <span>Start Assessment</span>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path
-                    d="M6 1V11M1 6H11"
+                    d="M1 11L11 1M11 1H3M11 1V9"
                     stroke="currentColor"
                     strokeWidth="1"
                   />
                 </svg>
-              </div>
+              </Link>
             </div>
           ))}
         </section>
@@ -498,9 +502,9 @@ export default function Home() {
                 "YOUR ACCOUNTING",
                 "YOUR PAYMENT PROCESSOR",
               ].map((tool, i) => (
-                <div key={i} className="flex items-center gap-2 group">
-                  <div className="w-2 h-2 border border-neutral-400 group-hover:bg-neutral-900 group-hover:border-neutral-900 transition-colors"></div>
-                  <span className="mono text-xs text-neutral-600 group-hover:text-neutral-900 transition-colors tracking-wider">
+                <div key={i} className="flex items-center gap-2 cursor-default select-none">
+                  <div className="w-2 h-2 border border-neutral-400 bg-neutral-400"></div>
+                  <span className="mono text-xs text-neutral-600 tracking-wider">
                     {tool}
                   </span>
                 </div>

@@ -48,7 +48,7 @@ export default function ThankYouPage() {
                             {[
                                 { step: "01", title: "Confirmation email sent", desc: "Check your inbox — you'll receive a confirmation with a summary of your responses.", time: "Now" },
                                 { step: "02", title: "Operations analysis begins", desc: "We're running a full analysis of your workflow — identifying bottlenecks, wasted hours, and opportunities to put AI to work.", time: "Within 1 hour" },
-                                { step: "03", title: "Custom roadmap delivered", desc: "Your operational roadmap lands in your inbox. It maps exactly where you're losing time and money, with specific solutions.", time: "Within 48 hours" }
+                                { step: "03", title: "Roadmap & SEO Report delivered", desc: "Your operational roadmap and competitor SEO teardown land in your inbox. It maps exactly where you're losing time, money, and traffic, with specific solutions.", time: "Within 48 hours" }
                             ].map((item, i) => (
                                 <div key={i} className="grid grid-cols-[60px_1fr_auto] gap-6 py-6 border-t border-theme">
                                     <div className="mono text-[10px] text-neutral-400 uppercase tracking-widest pt-1">{item.step}</div>
