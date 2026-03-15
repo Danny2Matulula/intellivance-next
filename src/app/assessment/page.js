@@ -544,7 +544,7 @@ export default function AssessmentPage() {
                         {downloadingPDF ? 'Generating PDF...' : 'Download Full Report (PDF)'}
                     </button>
                     <a
-                        href="https://link.intellivance.ai/widget/booking/zNv3m4PjAr0dPLjfsJT0"
+                        href="https://calendly.com/dan-intellivance/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 py-3.5 px-6 border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all mono text-[11px] uppercase tracking-widest font-semibold text-center"
