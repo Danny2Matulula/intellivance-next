@@ -48,10 +48,16 @@ export default function Footer() {
                                 INTELLIVANCE
                             </span>
                         </div>
-                        <p className="text-neutral-600 leading-relaxed mb-6">
+                        <p className="text-neutral-600 leading-relaxed mb-4">
                             We build AI-powered systems for businesses that want to run smarter.
                             Remove yourself as the bottleneck.
                         </p>
+                        <a
+                            href="mailto:hello@intellivance.ai"
+                            className="block text-sm text-neutral-500 hover:text-neutral-900 transition-colors mb-6 mono"
+                        >
+                            hello@intellivance.ai
+                        </a>
                         {subscribeStatus === "success" ? (
                             <div className="border border-green-600 bg-green-50 px-4 py-3 mono text-xs text-green-800 flex items-center gap-2">
                                 <svg
