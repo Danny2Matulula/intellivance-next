@@ -163,6 +163,7 @@ export async function POST(req) {
                         resume_token: token,
                         email: formData.email || null,
                         first_name: formData.firstName || null,
+                        last_name: formData.lastName || null,
                         industry: formData.industry || null,
                         team_size: formData.teamSize || null,
                         weekly_workflow: formData.weeklyWorkflow || null,
@@ -210,6 +211,7 @@ export async function POST(req) {
                     locationId: GHL_LOCATION,
                     email: formData.email.toLowerCase().trim(),
                     firstName: formData.firstName || undefined,
+                    lastName: formData.lastName || undefined,
                     phone: formData.phone || undefined,
                     website: formData.website || undefined,
                     tags,
@@ -264,7 +266,7 @@ export async function POST(req) {
 
                         // 4. Create opportunity in Assessment Funnel pipeline
                         const stageId = completed ? STAGES.ASSESSMENT_COMPLETE : STAGES.NEW_LEAD;
-                        const oppName = `${formData.firstName || formData.email} — Assessment`;
+                        const oppName = `${formData.firstName || ''} ${formData.lastName || ''}`.trim() || formData.email;
                         await fetch(`${GHL_API}/opportunities/`, {
                             method: 'POST',
                             headers: {

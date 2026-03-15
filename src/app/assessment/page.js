@@ -108,6 +108,7 @@ export default function AssessmentPage() {
         timeline: '',
         email: '',
         firstName: '',
+        lastName: '',
         phone: '',
         // Scored question answers (q1-q6)
         q1: '',
@@ -261,6 +262,7 @@ export default function AssessmentPage() {
                 body: JSON.stringify({
                     answers,
                     firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email,
                     returnPDF: false,
                 }),
@@ -288,6 +290,7 @@ export default function AssessmentPage() {
                 body: JSON.stringify({
                     answers,
                     firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email,
                     returnPDF: false,
                 }),
@@ -312,6 +315,7 @@ export default function AssessmentPage() {
                 body: JSON.stringify({
                     answers,
                     firstName: formData.firstName,
+                    lastName: formData.lastName,
                     email: formData.email,
                     returnPDF: true,
                 }),
@@ -344,7 +348,7 @@ export default function AssessmentPage() {
 
     const canProceed = () => {
         switch (step) {
-            case 1: return formData.email.includes('@') && formData.email.includes('.') && formData.firstName.trim().length > 0 && isBusinessEmail(formData.email);
+            case 1: return formData.email.includes('@') && formData.email.includes('.') && formData.firstName.trim().length > 0 && formData.lastName.trim().length > 0 && isBusinessEmail(formData.email);
             case 2: return formData.industry && formData.teamSize;
             case 3: return formData.q1 !== '' && formData.q2 !== '';
             case 4: return formData.q3 !== '' && formData.q4 !== '';
@@ -634,16 +638,28 @@ export default function AssessmentPage() {
                                 Takes 2 minutes. See exactly where your business stands — and what to fix first.
                             </p>
                         </div>
-                        <div>
-                            <label className={labelClass}>First name</label>
-                            <input
-                                type="text"
-                                value={formData.firstName}
-                                onChange={e => updateField('firstName', e.target.value)}
-                                placeholder="First name"
-                                className={inputClass}
-                                autoFocus
-                            />
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className={labelClass}>First name</label>
+                                <input
+                                    type="text"
+                                    value={formData.firstName}
+                                    onChange={e => updateField('firstName', e.target.value)}
+                                    placeholder="First name"
+                                    className={inputClass}
+                                    autoFocus
+                                />
+                            </div>
+                            <div>
+                                <label className={labelClass}>Last name</label>
+                                <input
+                                    type="text"
+                                    value={formData.lastName}
+                                    onChange={e => updateField('lastName', e.target.value)}
+                                    placeholder="Last name"
+                                    className={inputClass}
+                                />
+                            </div>
                         </div>
                         <div>
                             <label className={labelClass}>Business Email</label>
@@ -779,7 +795,7 @@ export default function AssessmentPage() {
                         )}
 
                         {[
-                            { label: "Name", value: formData.firstName },
+                            { label: "Name", value: `${formData.firstName} ${formData.lastName}`.trim() },
                             { label: "Email", value: formData.email },
                             { label: "Industry", value: formData.industry },
                             { label: "Team Size", value: formData.teamSize },
