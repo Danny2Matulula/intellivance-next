@@ -1,4 +1,5 @@
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const inter = Inter({
@@ -124,39 +125,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Google Tag (gtag.js) — loads GA4 + Google Ads */}
-        {gtagLoadId && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagLoadId}`} />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  ${ga4Id ? `gtag('config', '${ga4Id}');` : ''}
-                  ${gadsId ? `gtag('config', '${gadsId}');` : ''}
-                `,
-              }}
-            />
-          </>
-        )}
-        {/* Microsoft Advertising UET Tag */}
-        {bingUetId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t);n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||(o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)};var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i)})(window,document,"script","uetq",{ti:"${bingUetId}",enableAutoSpaTracking:true});`,
-            }}
-          />
-        )}
-        {/* Microsoft Clarity */}
-        {clarityId && (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","${clarityId}");`,
-            }}
-          />
-        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -174,6 +142,51 @@ export default function RootLayout({ children }) {
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         {children}
+
+        {/* Google Tag (gtag.js) — loads GA4 + Google Ads */}
+        {gtagLoadId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gtagLoadId}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  ${ga4Id ? `gtag('config', '${ga4Id}');` : ''}
+                  ${gadsId ? `gtag('config', '${gadsId}');` : ''}
+                `,
+              }}
+            />
+          </>
+        )}
+
+        {/* Microsoft Advertising UET Tag */}
+        {bingUetId && (
+          <Script
+            id="uet-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t);n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||(o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)};var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i)})(window,document,"script","uetq",{ti:"${bingUetId}",enableAutoSpaTracking:true});`,
+            }}
+          />
+        )}
+
+        {/* Microsoft Clarity */}
+        {clarityId && (
+          <Script
+            id="clarity-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","${clarityId}");`,
+            }}
+          />
+        )}
       </body>
     </html>
   );
