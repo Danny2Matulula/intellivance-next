@@ -57,7 +57,35 @@ export default function AssessmentPage() {
     const [honeypot, setHoneypot] = useState('');
     const [scoreResults, setScoreResults] = useState(null);
     const [downloadingPDF, setDownloadingPDF] = useState(false);
+    const [emailError, setEmailError] = useState('');
     const utmData = useUTM();
+
+    // --- Business email validation ---
+    const PERSONAL_DOMAINS = new Set([
+        'gmail.com', 'yahoo.com', 'yahoo.co.uk', 'hotmail.com', 'hotmail.co.uk',
+        'outlook.com', 'live.com', 'msn.com', 'aol.com', 'icloud.com', 'me.com',
+        'mac.com', 'protonmail.com', 'proton.me', 'mail.com', 'zoho.com',
+        'ymail.com', 'gmx.com', 'gmx.net', 'inbox.com', 'fastmail.com',
+        'rocketmail.com', 'att.net', 'sbcglobal.net', 'comcast.net',
+        'verizon.net', 'cox.net', 'charter.net', 'earthlink.net',
+    ]);
+
+    const isBusinessEmail = (email) => {
+        if (!email || !email.includes('@')) return true; // Don't show error while still typing
+        const domain = email.split('@')[1]?.toLowerCase()?.trim();
+        if (!domain || !domain.includes('.')) return true; // Incomplete domain, don't flag yet
+        return !PERSONAL_DOMAINS.has(domain);
+    };
+
+    const validateEmail = (email) => {
+        if (!email.includes('@') || !email.includes('.')) return false;
+        if (!isBusinessEmail(email)) {
+            setEmailError('Please use your business email — we tailor your report to your company.');
+            return false;
+        }
+        setEmailError('');
+        return true;
+    };
 
     const [formData, setFormData] = useState({
         industry: '',
@@ -276,7 +304,7 @@ export default function AssessmentPage() {
 
     const canProceed = () => {
         switch (step) {
-            case 1: return formData.email.includes('@') && formData.email.includes('.') && formData.firstName.trim().length > 0;
+            case 1: return formData.email.includes('@') && formData.email.includes('.') && formData.firstName.trim().length > 0 && isBusinessEmail(formData.email);
             case 2: return formData.industry && formData.teamSize;
             case 3: return formData.q1 !== '' && formData.q2 !== '';
             case 4: return formData.q3 !== '' && formData.q4 !== '';
@@ -429,7 +457,7 @@ export default function AssessmentPage() {
                     {question.options.map((option) => (
                         <label
                             key={option.value}
-                            className={`flex items-center gap-3 py-4 px-5 bg-white cursor-pointer hover:bg-neutral-50 transition-all ${selectedValue === option.value ? 'bg-neutral-100 ring-1 ring-inset ring-neutral-900' : ''}`}
+                            className={`flex items-center justify-center py-4 px-5 bg-white cursor-pointer hover:bg-neutral-50 transition-all ${selectedValue === option.value ? 'bg-neutral-100 ring-1 ring-inset ring-neutral-900' : ''}`}
                         >
                             <input
                                 type="radio"
@@ -438,12 +466,7 @@ export default function AssessmentPage() {
                                 onChange={() => updateField(question.id, option.value)}
                                 className="sr-only"
                             />
-                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${selectedValue === option.value ? 'border-neutral-900 bg-neutral-900' : 'border-neutral-300'}`}>
-                                {selectedValue === option.value && (
-                                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                                )}
-                            </div>
-                            <span className={`text-[14px] transition-colors leading-relaxed ${selectedValue === option.value ? 'text-neutral-900 font-medium' : 'text-neutral-600'}`}>
+                            <span className={`text-[14px] transition-colors leading-relaxed text-center ${selectedValue === option.value ? 'text-neutral-900 font-medium' : 'text-neutral-500'}`}>
                                 {option.label}
                             </span>
                         </label>
@@ -520,7 +543,17 @@ export default function AssessmentPage() {
                         <Download className="w-3.5 h-3.5" />
                         {downloadingPDF ? 'Generating PDF...' : 'Download Full Report (PDF)'}
                     </button>
-                    <p className="text-[12px] text-neutral-400 text-center">We&apos;ll also email you the full report.</p>
+                    <p className="text-[12px] text-neutral-400 text-center">We&apos;ve also emailed you the full report.</p>
+                </div>
+
+                {/* Secondary CTA */}
+                <div className="pt-4 border-t border-theme text-center">
+                    <button
+                        onClick={() => navigateStep(step + 1)}
+                        className="text-[13px] text-neutral-600 hover:text-neutral-900 transition-colors leading-relaxed"
+                    >
+                        Want a deeper analysis? Tell us more about your operations <ChevronRight className="w-3.5 h-3.5 inline-block ml-0.5" />
+                    </button>
                 </div>
             </div>
         );
@@ -552,14 +585,22 @@ export default function AssessmentPage() {
                             />
                         </div>
                         <div>
-                            <label className={labelClass}>Email</label>
+                            <label className={labelClass}>Business Email</label>
                             <input
                                 type="email"
                                 value={formData.email}
-                                onChange={e => updateField('email', e.target.value)}
+                                onChange={e => {
+                                    updateField('email', e.target.value);
+                                    // Clear error when typing, re-validate on blur
+                                    if (emailError) setEmailError('');
+                                }}
+                                onBlur={() => validateEmail(formData.email)}
                                 placeholder="you@company.com"
-                                className={inputClass}
+                                className={`${inputClass} ${emailError ? 'border-red-400' : ''}`}
                             />
+                            {emailError && (
+                                <p className="text-[12px] text-red-500 mt-2 leading-relaxed">{emailError}</p>
+                            )}
                         </div>
                         <p className="text-[12px] text-neutral-400 leading-relaxed">No spam. No calls. Just your score.</p>
                     </div>
