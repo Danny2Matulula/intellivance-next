@@ -114,23 +114,28 @@ const websiteSchema = {
 
 export default function RootLayout({ children }) {
   const gadsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+  const ga4Id = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
   const bingUetId = process.env.NEXT_PUBLIC_BING_UET_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
+
+  // Use GA4 ID for gtag loader if available, else Google Ads ID
+  const gtagLoadId = ga4Id || gadsId;
 
   return (
     <html lang="en">
       <head>
-        {/* Google Ads Tag (gtag.js) */}
-        {gadsId && (
+        {/* Google Tag (gtag.js) — loads GA4 + Google Ads */}
+        {gtagLoadId && (
           <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gadsId}`} />
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${gtagLoadId}`} />
             <script
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  gtag('config', '${gadsId}');
+                  ${ga4Id ? `gtag('config', '${ga4Id}');` : ''}
+                  ${gadsId ? `gtag('config', '${gadsId}');` : ''}
                 `,
               }}
             />

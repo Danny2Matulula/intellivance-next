@@ -77,6 +77,18 @@ export default function AssessmentPage() {
         return !PERSONAL_DOMAINS.has(domain);
     };
 
+    // --- Conversion Tracking Helpers ---
+    const fireEvent = (eventName, params = {}) => {
+        // Google Ads / GA4
+        if (typeof window !== 'undefined' && window.gtag) {
+            window.gtag('event', eventName, params);
+        }
+        // Microsoft UET
+        if (typeof window !== 'undefined' && window.uetq) {
+            window.uetq.push('event', eventName, params);
+        }
+    };
+
     const validateEmail = (email) => {
         if (!email.includes('@') || !email.includes('.')) return false;
         if (!isBusinessEmail(email)) {
@@ -176,6 +188,14 @@ export default function AssessmentPage() {
         };
         const results = scoreAssessment(answers);
         setScoreResults(results);
+
+        // Fire score reveal event with actual score value
+        fireEvent('score_revealed', {
+            event_category: 'assessment',
+            event_label: results.overallRating,
+            value: results.totalScore,
+        });
+
         return results;
     }, [formData.q1, formData.q2, formData.q3, formData.q4, formData.q5, formData.q6]);
 
@@ -197,7 +217,22 @@ export default function AssessmentPage() {
         }
 
         // Sync with backend after email capture (step 1)
-        if (step === 1) syncWithBackend(false);
+        if (step === 1) {
+            syncWithBackend(false);
+            // Fire lead generation event — this is the key signal for bid optimization
+            fireEvent('generate_lead', {
+                event_category: 'assessment',
+                event_label: 'email_captured',
+                value: 1,
+            });
+        }
+
+        // Fire step progression events for funnel analysis
+        fireEvent('assessment_step', {
+            event_category: 'assessment',
+            step_number: step + 1,
+            event_label: `step_${step + 1}_of_${TOTAL_STEPS}`,
+        });
 
         if (step < TOTAL_STEPS) setStep(prev => prev + 1);
     };
@@ -293,6 +328,11 @@ export default function AssessmentPage() {
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            // Track PDF download
+            fireEvent('pdf_download', {
+                event_category: 'assessment',
+                event_label: 'scorecard_pdf',
+            });
         } catch (e) {
             console.error('PDF download error:', e);
         } finally {
@@ -547,6 +587,11 @@ export default function AssessmentPage() {
                         href="https://calendly.com/dan-intellivance/30min"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => fireEvent('calendly_click', {
+                            event_category: 'assessment',
+                            event_label: 'book_strategy_call',
+                            value: 1,
+                        })}
                         className="w-full flex items-center justify-center gap-2 py-3.5 px-6 border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all mono text-[11px] uppercase tracking-widest font-semibold text-center"
                     >
                         Book a Free Strategy Call
