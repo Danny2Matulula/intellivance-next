@@ -543,7 +543,23 @@ export default function AssessmentPage() {
                         <Download className="w-3.5 h-3.5" />
                         {downloadingPDF ? 'Generating PDF...' : 'Download Full Report (PDF)'}
                     </button>
+                    <a
+                        href="https://link.intellivance.ai/widget/booking/zNv3m4PjAr0dPLjfsJT0"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full flex items-center justify-center gap-2 py-3.5 px-6 border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white transition-all mono text-[11px] uppercase tracking-widest font-semibold text-center"
+                    >
+                        Book a Free Strategy Call
+                        <ArrowRight className="w-3.5 h-3.5" />
+                    </a>
                     <p className="text-[12px] text-neutral-400 text-center">We&apos;ve also emailed you the full report.</p>
+                </div>
+
+                {/* Email fallback */}
+                <div className="pt-3 text-center">
+                    <p className="text-[12px] text-neutral-400">
+                        Questions? <a href="mailto:hello@intellivance.ai" className="text-neutral-600 hover:text-neutral-900 transition-colors underline underline-offset-2">hello@intellivance.ai</a>
+                    </p>
                 </div>
 
                 {/* Secondary CTA */}
