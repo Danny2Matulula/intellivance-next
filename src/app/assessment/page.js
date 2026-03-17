@@ -6,7 +6,7 @@ import { ArrowRight, ArrowLeft, Check, Shield, Mail, Download } from 'lucide-rea
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useUTM, utmToQueryString } from '@/hooks/useUTM';
-import { QUESTIONS, scoreAssessment, getScoreSummary } from '@/data/assessment-questions';
+import { QUESTIONS, scoreAssessment, getScoreSummary, estimateAnnualWaste } from '@/data/assessment-questions';
 
 // --- Token / Session Management ---
 const TOKEN_KEY = 'intellivance_assessment_token';
@@ -400,6 +400,7 @@ export default function AssessmentPage() {
             case 3:
                 if (!scoreResults) return null;
                 const { totalScore, maxScore, overallRating, categories, ratings, recommendations } = scoreResults;
+                const wasteEstimate = estimateAnnualWaste(categories);
                 return (
                     <div className="space-y-8">
                         {/* Score circle */}
@@ -417,6 +418,24 @@ export default function AssessmentPage() {
                                 {getScoreSummary(totalScore, formData.firstName)}
                             </p>
                         </div>
+
+                        {/* Estimated annual waste callout */}
+                        {wasteEstimate.total > 0 && totalScore < 80 && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4, duration: 0.5 }}
+                                className="bg-[#FFF8F0] border border-amber-200 p-5 text-center"
+                            >
+                                <div className="mono text-[10px] text-amber-600 uppercase tracking-widest mb-2">Estimated Annual Impact</div>
+                                <div className="text-3xl font-bold text-neutral-900 tracking-tight mb-1">
+                                    {wasteEstimate.formatted}<span className="text-lg font-normal text-neutral-400">/year</span>
+                                </div>
+                                <p className="text-[12px] text-neutral-500 leading-relaxed max-w-sm mx-auto">
+                                    Based on your responses, your current operations may be costing this much in inefficiency, missed revenue, and wasted team hours.
+                                </p>
+                            </motion.div>
+                        )}
 
                         {/* Category breakdown */}
                         <div>
@@ -489,8 +508,11 @@ export default function AssessmentPage() {
                                 Book a Free Strategy Call
                                 <ArrowRight className="w-3.5 h-3.5" />
                             </a>
-                            <p className="text-center text-[11px] text-neutral-400">
-                                We&apos;ve automated $4.2M+ in operations. 100% client retention.
+                            <p className="text-center text-[11px] text-neutral-500 leading-relaxed max-w-xs mx-auto">
+                                If we can&apos;t identify at least $50K/yr in recoverable waste on your call, the consultation is on us.
+                            </p>
+                            <p className="text-center text-[10px] text-neutral-400">
+                                $4.2M+ in operations automated &middot; 100% client retention
                             </p>
                         </div>
                     </div>

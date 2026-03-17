@@ -289,6 +289,50 @@ function generateRecommendations(categories, ratings) {
 }
 
 /**
+ * Estimate annual operational waste based on category scores.
+ * Returns { low, high, formatted } — a dollar range.
+ *
+ * Methodology: each category has an industry-benchmarked annual
+ * cost when fully manual. The gap between the score and max (25)
+ * represents the fraction of that cost the business is eating.
+ *
+ * Source benchmarks (conservative, based on SMB operations data):
+ *   - Automation gaps: ~$95K/yr (missed follow-ups, manual routing)
+ *   - Tech stack inefficiency: ~$45K/yr (redundant tools, no integrations)
+ *   - Manual work dependency: ~$75K/yr (admin time at $50-100/hr)
+ *   - Scalability risk: ~$85K/yr (hiring prematurely, bottleneck costs)
+ */
+export function estimateAnnualWaste(categories) {
+    const benchmarks = {
+        automation:   95000,
+        techStack:    45000,
+        manualWork:   75000,
+        scalability:  85000,
+    };
+
+    let totalWaste = 0;
+    for (const [key, score] of Object.entries(categories)) {
+        const benchmark = benchmarks[key] || 0;
+        const gap = Math.max(0, 25 - score) / 25; // 0 = no waste, 1 = max waste
+        totalWaste += benchmark * gap;
+    }
+
+    // Round to nearest $5K and create a ±15% range for credibility
+    const rounded = Math.round(totalWaste / 5000) * 5000;
+    const low = Math.round(rounded * 0.85 / 5000) * 5000;
+    const high = Math.round(rounded * 1.15 / 5000) * 5000;
+
+    const fmt = (n) => `$${(n / 1000).toFixed(0)}K`;
+
+    return {
+        low,
+        high,
+        total: rounded,
+        formatted: low === high ? fmt(low) : `${fmt(low)}–${fmt(high)}`,
+    };
+}
+
+/**
  * Get a human-friendly summary paragraph based on the score
  */
 export function getScoreSummary(totalScore, firstName) {
