@@ -477,20 +477,26 @@ export default async function BlogPost({ params }) {
                     </section>
                 )}
 
-                {/* CTA */}
+                {/* Assessment CTA */}
                 <section className="py-16 px-6 lg:px-12 bg-neutral-900 text-[#EAEAE5]">
                     <div className="max-w-3xl mx-auto text-center">
+                        <div className="mono text-[9px] text-neutral-500 uppercase tracking-widest mb-4">
+                            FREE — TAKES 60 SECONDS
+                        </div>
                         <h2 className="text-2xl font-normal tracking-tight mb-4">
-                            Ready to see what AI can do for your business?
+                            Want to know exactly where AI fits in <em>your</em> business?
                         </h2>
-                        <p className="text-neutral-400 mb-8">
-                            Free assessment. Custom roadmap in 48 hours.
+                        <p className="text-neutral-400 mb-3 max-w-lg mx-auto leading-relaxed">
+                            Take the AI Readiness Assessment — 6 quick questions, instant score across 4 categories, and a personalized PDF report you can share with your team.
+                        </p>
+                        <p className="text-neutral-500 text-sm mb-8">
+                            We&apos;ve automated $4.2M+ in operations across 40+ businesses. 100% client retention.
                         </p>
                         <Link
                             href="/assessment"
                             className="bg-[#EAEAE5] text-neutral-900 px-8 py-4 mono text-xs uppercase tracking-wider hover:bg-white transition-colors inline-flex items-center gap-3"
                         >
-                            Start Assessment
+                            Get Your AI Readiness Score
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                                 <path
                                     d="M1 11L11 1M11 1H3M11 1V9"
