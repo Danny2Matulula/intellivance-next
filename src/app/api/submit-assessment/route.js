@@ -145,6 +145,7 @@ export async function POST(req) {
         let dbSuccess = false;
         let ghlSuccess = false;
         let emailSent = false;
+        let contactId = null;
 
         // 1. Persist to Supabase
         if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
@@ -232,7 +233,7 @@ export async function POST(req) {
                 if (ghlRes.ok) {
                     ghlSuccess = true;
                     const ghlData = await ghlRes.json();
-                    const contactId = ghlData?.contact?.id;
+                    contactId = ghlData?.contact?.id;
 
                     if (contactId) {
                         // 3. Populate custom fields on contact
@@ -304,6 +305,7 @@ export async function POST(req) {
             persisted: dbSuccess,
             syncedToGHL: ghlSuccess,
             emailSent,
+            contactId,
         }, { status: 200 });
 
     } catch (error) {

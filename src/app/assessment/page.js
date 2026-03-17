@@ -123,9 +123,9 @@ export default function AssessmentPage() {
     };
 
     const syncWithBackend = async (isCompleted = false) => {
-        if (!token && !isCompleted) return;
+        if (!token && !isCompleted) return null;
         try {
-            await fetch('/api/submit-assessment', {
+            const res = await fetch('/api/submit-assessment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -137,9 +137,14 @@ export default function AssessmentPage() {
                     utmData,
                 }),
             });
+            if (res.ok) {
+                const data = await res.json();
+                return data.contactId || null;
+            }
         } catch (e) {
             console.error('Sync failed', e);
         }
+        return null;
     };
 
     const computeScore = useCallback(() => {
@@ -163,16 +168,16 @@ export default function AssessmentPage() {
             // Compute score, show processing, then reveal
             computeScore();
             setProcessing(true);
-            setTimeout(() => {
+            setTimeout(async () => {
                 setProcessing(false);
-                syncWithBackend(true);
+                const cId = await syncWithBackend(true);
                 // Trigger report email in background
                 try {
                     const answers = { q1: formData.q1, q2: formData.q2, q3: formData.q3, q4: formData.q4, q5: formData.q5, q6: formData.q6 };
                     fetch('/api/generate-report', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ answers, firstName: formData.firstName, email: formData.email, returnPDF: false }),
+                        body: JSON.stringify({ answers, firstName: formData.firstName, email: formData.email, contactId: cId, returnPDF: false }),
                     }).catch(e => console.error('Report email error:', e));
                 } catch (e) {
                     console.error('Report trigger error:', e);
