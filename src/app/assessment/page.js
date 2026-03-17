@@ -97,10 +97,18 @@ export default function AssessmentPage() {
     });
 
     useEffect(() => {
+        // Scroll to top on mount so form is always visible
+        window.scrollTo(0, 0);
+
         const params = new URLSearchParams(window.location.search);
         const urlToken = params.get('token');
         const session = loadSession(urlToken);
         if (session) {
+            // Guard: if session saved at step 3 but has no score data, reset
+            if (session.currentStep === 3 && !session.scoreResults) {
+                clearSession();
+                return; // Start fresh
+            }
             setToken(session.token);
             setFormData(session.formData);
             setStep(session.currentStep);
