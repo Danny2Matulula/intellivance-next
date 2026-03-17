@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CommentSection from "@/components/CommentSection";
 import ShareBar from "@/components/ShareBar";
+import ScrollCTA from "@/components/ScrollCTA";
 import blogPosts from "@/data/blog-posts.json";
 
 export async function generateStaticParams() {
@@ -386,54 +387,7 @@ export default async function BlogPost({ params }) {
                 {/* Content */}
                 <article className="py-12 px-6 lg:px-12 bg-white">
                     <div className="max-w-3xl mx-auto prose-custom">
-                        {(() => {
-                            const elements = renderMarkdown(post.content);
-                            // Insert newsletter CTA after the 2nd heading
-                            let headingCount = 0;
-                            let insertIndex = -1;
-                            for (let i = 0; i < elements.length; i++) {
-                                const el = elements[i];
-                                if (el?.type === 'h2' || el?.type === 'h3') {
-                                    headingCount++;
-                                    if (headingCount === 2) {
-                                        // Find the next paragraph or element after this heading
-                                        insertIndex = i + 2; // after heading + first paragraph
-                                        break;
-                                    }
-                                }
-                            }
-                            if (insertIndex > 0 && insertIndex < elements.length) {
-                                elements.splice(insertIndex, 0,
-                                    <div key="newsletter-cta" className="my-10 p-6 bg-[#EAEAE5] border border-theme">
-                                        <div className="mono text-[9px] text-neutral-400 uppercase tracking-widest mb-2">
-                                            [ THE_OPERATOR_BRIEF ]
-                                        </div>
-                                        <div className="text-lg font-medium mb-1">
-                                            Get insights like this every week.
-                                        </div>
-                                        <p className="text-sm text-neutral-600 mb-4">
-                                            Operational blind spots, AI-driven ROI breakdowns, and industry deep dives — delivered to operators who build.
-                                        </p>
-                                        <form className="flex gap-2" action="/api/subscribe" method="POST">
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                placeholder="you@company.com"
-                                                required
-                                                className="flex-1 px-4 py-2.5 text-sm border border-neutral-300 bg-white focus:border-neutral-900 focus:outline-none mono"
-                                            />
-                                            <button
-                                                type="submit"
-                                                className="px-5 py-2.5 bg-neutral-900 text-[#EAEAE5] mono text-[10px] uppercase tracking-wider hover:bg-black transition-colors"
-                                            >
-                                                Subscribe
-                                            </button>
-                                        </form>
-                                    </div>
-                                );
-                            }
-                            return elements;
-                        })()}
+                        {renderMarkdown(post.content)}
                     </div>
                 </article>
 
@@ -481,7 +435,7 @@ export default async function BlogPost({ params }) {
                 <section className="py-16 px-6 lg:px-12 bg-neutral-900 text-[#EAEAE5]">
                     <div className="max-w-3xl mx-auto text-center">
                         <div className="mono text-[9px] text-neutral-500 uppercase tracking-widest mb-4">
-                            FREE — TAKES 60 SECONDS
+                            FREE — TAKES 3 MINUTES
                         </div>
                         <h2 className="text-2xl font-normal tracking-tight mb-4">
                             Want to know exactly where AI fits in <em>your</em> business?
@@ -510,6 +464,7 @@ export default async function BlogPost({ params }) {
             </main>
 
             <Footer />
+            <ScrollCTA />
         </div>
     );
 }
