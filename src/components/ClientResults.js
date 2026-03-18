@@ -10,7 +10,7 @@ const allClients = [
         sub: "4-Location Service Business",
         category: "Operations",
         tag: "service",
-        result: "$250K+ annual value",
+        result: "$250K+ in annual time savings",
         desc: "Eliminated 15 hrs/wk of admin across fleet outreach, email triage, and daily reporting.",
     },
     {
@@ -19,7 +19,7 @@ const allClients = [
         sub: "Healthcare + Wellness",
         category: "Patient Retention",
         tag: "service",
-        result: "2x patient rebookings",
+        result: "Rebookings: 31% → 64%",
         desc: "AI-powered post-visit follow-ups and review requests. Rebooking rate doubled within 6 weeks.",
     },
     {
@@ -46,7 +46,7 @@ const allClients = [
         sub: "Legal Services",
         category: "Intake",
         tag: "service",
-        result: "Same-day processing",
+        result: "Intake: 2 days → 20 min",
         desc: "Client intake auto-summarized, conflict-checked, and assigned. What took 2 days now takes 20 minutes.",
     },
     {
@@ -55,7 +55,7 @@ const allClients = [
         sub: "Home Services",
         category: "Follow-up",
         tag: "service",
-        result: "-$4K/mo in missed callbacks",
+        result: "$4K/mo in callbacks recovered",
         desc: "AI-powered service follow-ups and warranty reminders. Revenue that slipped through the cracks now gets captured.",
     },
     {

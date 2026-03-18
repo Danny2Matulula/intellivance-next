@@ -19,7 +19,7 @@ const faqSchema = {
       name: "What does Intellivance actually do?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We look at how your business runs day-to-day and find the repetitive, time-draining tasks that shouldn't require a person. Then we build AI-powered systems to handle them — from email triage and CRM updates to invoice reminders and client onboarding. On average, our clients get back 11.2 hours per week.",
+        text: "Our clients get back 11.2 hours per week on average. We do that by building AI systems that handle the work your team shouldn't be doing manually — follow-ups that fall through the cracks, reports that take all Friday afternoon, data that gets typed into three different tools. We diagnose the biggest time drains, build the automations, and train your team to use them. You keep your existing tools. We just make them talk to each other.",
       },
     },
     {
@@ -27,7 +27,7 @@ const faqSchema = {
       name: "How much does this cost?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Costs vary based on complexity, but our clients typically see ROI within 30-60 days. We start with a free 48-hour assessment that maps your specific bottlenecks and provides a prioritized roadmap with estimated savings. No call or credit card required.",
+        text: "Most clients see ROI within the first 30 days — not the second. We start with a free assessment that maps your specific bottlenecks and shows you exactly what to fix, in what order, and what it saves you. No call, no credit card, no 90-page proposal. Just an honest diagnostic you can act on whether you hire us or not.",
       },
     },
     {
@@ -35,7 +35,7 @@ const faqSchema = {
       name: "What tools and platforms do you integrate with?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We're stack-agnostic — we plug into whatever you're already using. This includes CRMs (HubSpot, Salesforce, GHL), calendars (Google, Outlook), email platforms, invoicing tools, phone systems, booking software, review platforms, accounting software, and payment processors. We don't rip out your tools — we wire them together.",
+        text: "Whatever you're already using. HubSpot, Salesforce, GHL, Google Workspace, Outlook, QuickBooks, Stripe, Calendly, Jobber — we've connected them all. We don't rip out your stack and replace it. We wire your existing tools together so data stops getting manually copy-pasted between systems.",
       },
     },
     {
@@ -43,7 +43,7 @@ const faqSchema = {
       name: "How long does it take to see results?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most systems are live within 2-4 weeks of engagement. We deliver a custom AI roadmap within 48 hours of your free assessment, showing exactly what to address, in what order, and what it saves you. Implementation is phased so you see value immediately.",
+        text: "The first automation is usually live within 1-2 weeks. We start with the single highest-impact bottleneck — the one that's costing you the most time or money right now — and build that first. You see the win, your team trusts the process, then we stack the next one. Most 8-week engagements deliver 3-4 fully operational systems.",
       },
     },
     {
@@ -51,7 +51,7 @@ const faqSchema = {
       name: "What industries do you serve?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We serve businesses across 12+ industries including auto dealerships, medical spas, field services, DTC e-commerce, law firms, HVAC, real estate, insurance, consulting, dental practices, fitness studios, and restaurants. We've completed 30+ engagements across 14 states.",
+        text: "Any business doing $1M+ with a team that spends too much time on work that should be automated. We've done 30+ engagements across 14 states — auto dealerships, med spas, HVAC contractors, law firms, e-commerce brands, cleaning companies, dental practices, and more. The industry matters less than the bottleneck. If your team is drowning in admin, we can help.",
       },
     },
   ],
@@ -87,7 +87,7 @@ export default function Home() {
   const clientResults = [
     { industry: "Medical Practice", result: "11.2 hrs/week recovered", detail: "Automated patient follow-ups, intake forms, and appointment reminders", tag: "HEALTHCARE" },
     { industry: "DTC E-commerce Brand", result: "Cart recovery: 3% → 22%", detail: "AI-powered abandoned cart sequences and post-purchase nurture", tag: "E-COMMERCE" },
-    { industry: "Auto Dealership", result: "$340K pipeline protected", detail: "Automated quote follow-ups that used to fall through the cracks", tag: "AUTOMOTIVE" },
+    { industry: "Auto Dealership", result: "$250K+ in annual time savings", detail: "Eliminated 15 hrs/wk of admin across fleet outreach, email triage, and reporting", tag: "AUTOMOTIVE" },
     { industry: "HVAC Contractor", result: "4.5 hrs/day saved on dispatch", detail: "AI route optimization and automated customer notifications", tag: "FIELD SERVICES" },
     { industry: "Law Firm", result: "Zero intake leads lost", detail: "Instant client intake processing and conflict-check automation", tag: "LEGAL" },
   ];
