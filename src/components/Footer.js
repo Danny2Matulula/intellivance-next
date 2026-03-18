@@ -189,13 +189,21 @@ export default function Footer() {
                     <div className="mono text-xs text-neutral-400">
                         © 2026 INTELLIVANCE. ALL RIGHTS RESERVED.
                     </div>
-                    <div className="flex gap-4 mt-4 md:mt-0">
-                        {[1, 2, 3].map((i) => (
-                            <div
-                                key={i}
-                                className="w-2 h-2 rounded-full bg-neutral-300 hover:bg-neutral-900 cursor-pointer transition-colors"
-                            ></div>
-                        ))}
+                    <div className="flex items-center gap-6 mt-4 md:mt-0">
+                        <a
+                            href="mailto:hello@intellivance.ai"
+                            className="mono text-xs text-neutral-400 hover:text-neutral-900 transition-colors"
+                        >
+                            hello@intellivance.ai
+                        </a>
+                        <a
+                            href="https://calendly.com/dan-intellivance/30min"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mono text-xs text-neutral-400 hover:text-neutral-900 transition-colors"
+                        >
+                            Book a Call
+                        </a>
                     </div>
                 </div>
             </div>
