@@ -75,7 +75,7 @@ export default function Navbar() {
                         rel="noopener noreferrer"
                         className="hidden md:block mono text-[10px] text-neutral-900 uppercase tracking-wider hover:text-neutral-600 transition-colors font-semibold"
                     >
-                        Book a Call
+                        Free Strategy Call
                     </a>
                     <Link href="/assessment" className="btn-tech">
                         <span>Free Assessment</span>

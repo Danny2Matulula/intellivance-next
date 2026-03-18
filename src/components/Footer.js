@@ -202,7 +202,7 @@ export default function Footer() {
                             rel="noopener noreferrer"
                             className="mono text-xs text-neutral-400 hover:text-neutral-900 transition-colors"
                         >
-                            Book a Call
+                            Free Strategy Call
                         </a>
                     </div>
                 </div>
