@@ -45,7 +45,7 @@ const allClients = [
         name: "Regional Law Firm",
         sub: "Legal Services",
         category: "Intake",
-        tag: "service",
+        tag: "professional",
         result: "Intake: 2 days → 20 min",
         desc: "Client intake auto-summarized, conflict-checked, and assigned. What took 2 days now takes 20 minutes.",
     },
@@ -72,9 +72,36 @@ const allClients = [
         name: "Boutique Consulting Firm",
         sub: "Professional Services",
         category: "Proposals",
-        tag: "service",
+        tag: "professional",
         result: "3x faster proposals",
         desc: "Intake-to-scope AI: call transcribed, SOW drafted, and pricing pulled from comparable data.",
+    },
+    {
+        initials: "SC",
+        name: "B2B SaaS Company",
+        sub: "Technology / Software",
+        category: "Onboarding",
+        tag: "professional",
+        result: "Onboarding: 14 days → 3 days",
+        desc: "AI-powered customer onboarding sequences — account setup, training emails, and check-in calls triggered automatically based on usage signals.",
+    },
+    {
+        initials: "FA",
+        name: "Financial Advisory Firm",
+        sub: "Wealth Management",
+        category: "Compliance",
+        tag: "professional",
+        result: "8 hrs/wk freed from reporting",
+        desc: "Automated quarterly client reports and compliance document generation. Advisors spend time advising, not formatting PDFs.",
+    },
+    {
+        initials: "MA",
+        name: "Digital Marketing Agency",
+        sub: "Agency / Professional Services",
+        category: "Client Reporting",
+        tag: "professional",
+        result: "30+ reports/mo on autopilot",
+        desc: "AI pulls campaign data from Google, Meta, and email platforms — formats branded client reports and delivers them weekly. Zero analyst hours.",
     },
 ];
 
@@ -103,6 +130,7 @@ export default function ClientResults() {
                             { key: "all", label: "All" },
                             { key: "service", label: "Service" },
                             { key: "ecommerce", label: "E-Commerce" },
+                            { key: "professional", label: "Professional" },
                         ].map((f) => (
                             <button
                                 key={f.key}
