@@ -50,15 +50,6 @@ const allClients = [
         desc: "Client intake auto-summarized, conflict-checked, and assigned. What took 2 days now takes 20 minutes.",
     },
     {
-        initials: "HV",
-        name: "HVAC Service Provider",
-        sub: "Home Services",
-        category: "Follow-up",
-        tag: "service",
-        result: "$4K/mo in callbacks recovered",
-        desc: "AI-powered service follow-ups and warranty reminders. Revenue that slipped through the cracks now gets captured.",
-    },
-    {
         initials: "RB",
         name: "Regional E-Commerce Brand",
         sub: "Multi-channel Retail",

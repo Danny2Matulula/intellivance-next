@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 const verticals = [
   "AUTO DEALERS", "MED SPAS", "FIELD SERVICES", "DTC BRANDS", "LAW FIRMS",
-  "HVAC / PLUMBING", "REAL ESTATE", "INSURANCE", "CONSULTING", "E-COMMERCE",
+  "HOME SERVICES", "REAL ESTATE", "INSURANCE", "CONSULTING", "E-COMMERCE",
   "DENTAL PRACTICES", "FITNESS STUDIOS", "RESTAURANTS", "HOME SERVICES", "LOGISTICS",
 ];
 
@@ -51,7 +51,7 @@ const faqSchema = {
       name: "What industries do you serve?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Any business doing $1M+ with a team that spends too much time on work that should be automated. We've done 30+ engagements across 14 states — auto dealerships, med spas, HVAC contractors, law firms, e-commerce brands, cleaning companies, dental practices, and more. The industry matters less than the bottleneck. If your team is drowning in admin, we can help.",
+        text: "Any business doing $1M+ with a team that spends too much time on work that should be automated. We've done 30+ engagements across 14 states — auto dealerships, med spas, law firms, e-commerce brands, SaaS companies, financial advisors, marketing agencies, and more. The industry matters less than the bottleneck. If your team is drowning in admin, we can help.",
       },
     },
   ],
@@ -88,7 +88,7 @@ export default function Home() {
     { industry: "Medical Practice", result: "11.2 hrs/week recovered", detail: "Automated patient follow-ups, intake forms, and appointment reminders", tag: "HEALTHCARE" },
     { industry: "DTC E-commerce Brand", result: "Cart recovery: 3% → 22%", detail: "AI-powered abandoned cart sequences and post-purchase nurture", tag: "E-COMMERCE" },
     { industry: "Auto Dealership", result: "$250K+ in annual time savings", detail: "Eliminated 15 hrs/wk of admin across fleet outreach, email triage, and reporting", tag: "AUTOMOTIVE" },
-    { industry: "HVAC Contractor", result: "4.5 hrs/day saved on dispatch", detail: "AI route optimization and automated customer notifications", tag: "FIELD SERVICES" },
+    { industry: "Financial Advisory Firm", result: "8 hrs/wk freed from reporting", detail: "Automated quarterly client reports and compliance docs", tag: "FINANCE" },
     { industry: "Law Firm", result: "Zero intake leads lost", detail: "Instant client intake processing and conflict-check automation", tag: "LEGAL" },
   ];
 
@@ -227,7 +227,7 @@ export default function Home() {
                     { label: "FIELD SVC", hrs: "9.5" },
                     { label: "E-COMM", hrs: "12.1" },
                     { label: "LEGAL", hrs: "7.3" },
-                    { label: "HVAC", hrs: "10.6" },
+                    { label: "FINANCE", hrs: "10.6" },
                   ].map((v, i) => (
                     <div key={i} className="flex items-center justify-between">
                       <span className="mono text-[9px] text-neutral-400">
