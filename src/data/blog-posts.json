@@ -957,7 +957,7 @@
     "description": "There are 14,000 AI tools on the market. Most of them are useless for small businesses. Here are the 6 that genuinely move the needle — and the 4 categories that are pure noise.",
     "category": "Strategy",
     "author": "Danny Matulula",
-    "publishedAt": "2026-03-14",
+    "publishedAt": "2026-01-06",
     "modifiedAt": "2026-03-14",
     "readingTime": "9 min",
     "featured": true,
@@ -967,56 +967,56 @@
         "id": "comment-ai-solutions-smb-1",
         "author": "Jerry Huang",
         "content": "The chatbot take is so true. We spent $8K on a chatbot last year. Used it for 3 months. Nobody liked it. Our conversion rate actually dropped. Ripped it out and put the phone number back.",
-        "createdAt": "2026-03-17T13:20:00.000Z",
+        "createdAt": "2026-01-13T13:20:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-solutions-smb-2",
         "author": "Danny Matulula",
         "content": "@Jerry — That's the pattern I see every time. Chatbots work for massive e-commerce sites with 50,000 daily visitors. For a local service business getting 200 visits a day? Just answer the phone. It's not that complicated.",
-        "createdAt": "2026-03-20T10:45:00.000Z",
+        "createdAt": "2026-01-23T10:45:00.000Z",
         "replyTo": "comment-ai-solutions-smb-1"
       },
       {
         "id": "comment-ai-solutions-smb-3",
         "author": "Nicole A.",
         "content": "The AI-assisted customer response vs actual chatbot distinction is massive. We're doing the draft-and-review approach for our support inbox and it cut response time by 70%.",
-        "createdAt": "2026-03-23T16:10:00.000Z",
+        "createdAt": "2026-02-02T16:10:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-solutions-smb-4",
         "author": "Andre M.",
         "content": "'If they can't answer in one sentence, they're selling you a demo.' Using this line in my next vendor call.",
-        "createdAt": "2026-03-26T09:35:00.000Z",
+        "createdAt": "2026-02-12T09:35:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-solutions-smb-5",
         "author": "Tyler Seton (Intellivance)",
         "content": "@Andre — It works every time. Watch how fast the call gets quiet when you ask them for a specific hours-per-week impact. The good vendors will have a real answer. The bad ones will pivot to buzzwords.",
-        "createdAt": "2026-03-29T14:00:00.000Z",
+        "createdAt": "2026-02-22T14:00:00.000Z",
         "replyTo": "comment-ai-solutions-smb-4"
       },
       {
         "id": "comment-ai-solutions-smb-6",
         "author": "Lisa V.",
         "content": "Just booked the assessment. Running a 3-location cleaning company and I know for a fact our scheduling is burning money. Hoping the intelligent dispatch piece applies.",
-        "createdAt": "2026-04-01T11:20:00.000Z",
+        "createdAt": "2026-03-02T11:20:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-solutions-smb-7",
         "author": "P. Rhodes",
         "content": "The 'AI strategy consulting with no build' call-out is personal. We paid $35K for a McKinsey-style engagement and got a deck we couldn't act on. Never again.",
-        "createdAt": "2026-04-04T15:50:00.000Z",
+        "createdAt": "2026-03-09T15:50:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-solutions-smb-8",
         "author": "Danny Matulula",
         "content": "@P. Rhodes — That's the exact problem we built Intellivance to solve. Diagnose AND build. A recommendation you can't execute is a $35K bookmark.",
-        "createdAt": "2026-04-07T09:00:00.000Z",
+        "createdAt": "2026-03-16T09:00:00.000Z",
         "replyTo": "comment-ai-solutions-smb-7"
       }
     ]
@@ -1027,7 +1027,7 @@
     "description": "You've Googled 'AI business consultant' but you're still not sure what the engagement even looks like. Here's the week-by-week breakdown, what it costs, and the red flags that separate real ones from expensive slide decks.",
     "category": "Strategy",
     "author": "Danny Matulula",
-    "publishedAt": "2026-03-15",
+    "publishedAt": "2026-01-20",
     "modifiedAt": "2026-03-15",
     "readingTime": "7 min",
     "featured": false,
@@ -1037,49 +1037,49 @@
         "id": "comment-ai-consultant-1",
         "author": "Steve T.",
         "content": "The pricing transparency is refreshing. Every other consultant I've talked to treats their fees like a state secret. This is the first real answer I've gotten.",
-        "createdAt": "2026-03-18T10:30:00.000Z",
+        "createdAt": "2026-01-27T10:30:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-consultant-2",
         "author": "Danny Matulula",
         "content": "@Steve — Hiding pricing is a sales tactic, not a business strategy. If your consultant won't talk numbers before the first call, they're counting on anchoring you high once you're emotionally invested. We'd rather lose the deal upfront than waste both our time.",
-        "createdAt": "2026-03-21T09:00:00.000Z",
+        "createdAt": "2026-02-06T09:00:00.000Z",
         "replyTo": "comment-ai-consultant-1"
       },
       {
         "id": "comment-ai-consultant-3",
         "author": "Janet R.",
         "content": "I fell for a 'digital transformation' consultant two years ago. $45K. We got a fantastic deck that nobody could implement. Reading this felt like a therapy session.",
-        "createdAt": "2026-03-24T14:50:00.000Z",
+        "createdAt": "2026-02-16T14:50:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-consultant-4",
         "author": "Kash Maheshwari (Intellivance)",
         "content": "@Janet — You'd be shocked how common that story is. We hear it in about a third of our initial calls. Strategy without execution is just an expensive bookmark.",
-        "createdAt": "2026-03-27T11:15:00.000Z",
+        "createdAt": "2026-02-26T11:15:00.000Z",
         "replyTo": "comment-ai-consultant-3"
       },
       {
         "id": "comment-ai-consultant-5",
         "author": "Bill F.",
         "content": "The red flags list should be required reading. Especially the '6-month discovery phase' one. That's how they lock in the retainer before doing any actual work.",
-        "createdAt": "2026-03-30T16:40:00.000Z",
+        "createdAt": "2026-03-05T16:40:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-consultant-6",
         "author": "Monica T.",
         "content": "Do you guys do the shadowing virtually or do you need to be on-site? We're in a small town in Montana and nobody flies out here.",
-        "createdAt": "2026-04-02T09:20:00.000Z",
+        "createdAt": "2026-03-10T09:20:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-ai-consultant-7",
         "author": "Danny Matulula",
         "content": "@Monica — 90% virtual. We do screen shares with your team, watch them walk through their actual workflows in real time. The 10% that requires on-site is usually manufacturing or warehouse — anywhere the physical layout matters. For office work, virtual is actually better because we can record the sessions and reference them during the build.",
-        "createdAt": "2026-04-05T13:30:00.000Z",
+        "createdAt": "2026-03-15T13:30:00.000Z",
         "replyTo": "comment-ai-consultant-6"
       }
     ]
@@ -1090,7 +1090,7 @@
     "description": "The technology is the easy part. The people part is where AI implementations actually die. Here's how to roll out automation without your team revolting — from someone who's watched it go wrong.",
     "category": "Operations",
     "author": "Danny Matulula",
-    "publishedAt": "2026-03-16",
+    "publishedAt": "2026-02-03",
     "modifiedAt": "2026-03-16",
     "readingTime": "8 min",
     "featured": false,
@@ -1100,63 +1100,63 @@
         "id": "comment-implement-ai-1",
         "author": "Karen H.",
         "content": "The Diane story at the beginning is painfully familiar. We had an almost identical situation with our warehouse team. Nobody told them what was coming, and they fought the new system for months.",
-        "createdAt": "2026-03-19T14:15:00.000Z",
+        "createdAt": "2026-02-10T14:15:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-implement-ai-2",
         "author": "Danny Matulula",
         "content": "@Karen — It's the same story in 90% of failed implementations I've seen. The tech isn't the problem. The silence before the rollout is. Ten minutes of honest conversation would've saved months of resistance.",
-        "createdAt": "2026-03-22T10:30:00.000Z",
+        "createdAt": "2026-02-17T10:30:00.000Z",
         "replyTo": "comment-implement-ai-1"
       },
       {
         "id": "comment-implement-ai-3",
         "author": "Robert J.",
         "content": "The one-on-one deployment instead of group meetings is such a good move. I'm an operations director and I watch people zone out in group training sessions every single time.",
-        "createdAt": "2026-03-25T16:55:00.000Z",
+        "createdAt": "2026-02-24T16:55:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-implement-ai-4",
         "author": "Tyler Seton (Intellivance)",
         "content": "@Robert — Group meetings check a box. One-on-ones change behavior. Given that the goal is actual adoption and not just 'we trained them,' the 30 minutes per person is infinitely more valuable.",
-        "createdAt": "2026-03-28T11:00:00.000Z",
+        "createdAt": "2026-03-01T11:00:00.000Z",
         "replyTo": "comment-implement-ai-3"
       },
       {
         "id": "comment-implement-ai-5",
         "author": "Diane (yes, that Diane)",
         "content": "I can't believe I'm reading about myself on there. Danny is right though — the second time around was completely different because I understood what the system was doing and why. I actually like it now.",
-        "createdAt": "2026-03-31T13:45:00.000Z",
+        "createdAt": "2026-03-06T13:45:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-implement-ai-6",
         "author": "Danny Matulula",
         "content": "@Diane — You are genuinely one of the best internal champions we've ever worked with. Once you got on board, the rest of the team followed in two days. That's not a coincidence.",
-        "createdAt": "2026-04-03T09:20:00.000Z",
+        "createdAt": "2026-03-10T09:20:00.000Z",
         "replyTo": "comment-implement-ai-5"
       },
       {
         "id": "comment-implement-ai-7",
         "author": "Nathan C.",
         "content": "The 'Sunday nights back' line from the cleaning coordinator. That's the real ROI. People forget that time savings means quality of life, not just dollars.",
-        "createdAt": "2026-04-06T17:30:00.000Z",
+        "createdAt": "2026-03-13T17:30:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-implement-ai-8",
         "author": "Marco A.",
         "content": "Practical question — what happens when the internal champion quits? That seems like a single point of failure.",
-        "createdAt": "2026-04-09T10:10:00.000Z",
+        "createdAt": "2026-03-15T10:10:00.000Z",
         "replyTo": null
       },
       {
         "id": "comment-implement-ai-9",
         "author": "Danny Matulula",
         "content": "@Marco — Real risk. We always document the troubleshooting playbook so it's not in someone's head. And we usually train a backup champion. But if both leave, yes, you're calling us back. That's the honest answer.",
-        "createdAt": "2026-04-12T14:00:00.000Z",
+        "createdAt": "2026-03-17T14:00:00.000Z",
         "replyTo": "comment-implement-ai-8"
       }
     ]
