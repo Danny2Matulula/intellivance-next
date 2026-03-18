@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { scoreAssessment } from '@/data/assessment-questions';
+import { scoreAssessment, estimateAnnualWaste } from '@/data/assessment-questions';
 
 const GHL_API = 'https://services.leadconnectorhq.com';
 const GHL_LOCATION = 'BQJFK9oHXVAYJotxKSiR';
@@ -32,6 +32,10 @@ const CF = {
     UTM_MEDIUM: '9HL9S6QRlF7xW1R4udoK',
     UTM_CAMPAIGN: 'Qgwt9WzZM3iHveY4nmnM',
     UTM_CLICK_ID: 'DfXPKUmtAxRMuVvsi80N',
+    // AI Readiness Score (Issue #7 — enables CRM triage by score)
+    AI_SCORE: process.env.GHL_CF_AI_SCORE || '',
+    AI_RATING: process.env.GHL_CF_AI_RATING || '',
+    AI_WASTE_ESTIMATE: process.env.GHL_CF_AI_WASTE || '',
 };
 
 // ── Email Templates ────────────────────────────────────────────────────────
@@ -262,6 +266,17 @@ export async function POST(req) {
                         if (formData.teamSize) customFieldValues.push({ id: CF.TEAM_SIZE, value: formData.teamSize });
                         if (formData.moneyLoss) customFieldValues.push({ id: CF.MONEY_LOSS, value: formData.moneyLoss });
                         if (formData.weeklyWorkflow) customFieldValues.push({ id: CF.WEEKLY_WORKFLOW, value: formData.weeklyWorkflow });
+
+                        // AI Readiness Score custom fields (Issue #7)
+                        if (scoreResults) {
+                            if (CF.AI_SCORE) customFieldValues.push({ id: CF.AI_SCORE, value: String(scoreResults.totalScore) });
+                            if (CF.AI_RATING) customFieldValues.push({ id: CF.AI_RATING, value: scoreResults.overallRating });
+                            // Waste estimate for CRM display
+                            if (CF.AI_WASTE_ESTIMATE) {
+                                const waste = estimateAnnualWaste(scoreResults.categories);
+                                customFieldValues.push({ id: CF.AI_WASTE_ESTIMATE, value: waste.formatted });
+                            }
+                        }
 
                         // UTM Attribution — write to GHL so leads are filterable by source
                         if (utmData?.utm_source) customFieldValues.push({ id: CF.UTM_SOURCE, value: utmData.utm_source });

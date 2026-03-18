@@ -159,6 +159,9 @@ export default function Home() {
                   See the Proof
                 </a>
               </div>
+              <p className="text-[11px] text-neutral-500 mt-3 leading-relaxed max-w-md">
+                If we can&apos;t identify at least $50K/yr in recoverable waste, the consultation is on us.
+              </p>
             </div>
           </div>
 
@@ -548,8 +551,11 @@ export default function Home() {
                 />
               </svg>
             </Link>
-            <p className="mono text-[10px] text-neutral-500 mt-4 tracking-wider">
-              TAKES ~3 MINUTES • RESULTS IN 48 HOURS
+            <p className="text-[11px] text-neutral-500 mt-4 leading-relaxed max-w-sm mx-auto">
+              If we can&apos;t identify at least $50K/yr in recoverable waste, the consultation is on us.
+            </p>
+            <p className="mono text-[10px] text-neutral-400 mt-2 tracking-wider">
+              TAKES ~3 MINUTES &bull; RESULTS IN 48 HOURS
             </p>
           </div>
         </section>

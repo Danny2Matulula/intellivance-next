@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, Shield, Mail, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -44,6 +44,7 @@ const TOTAL_STEPS = 3;
 
 export default function AssessmentPage() {
     const [step, setStep] = useState(1);
+    const contentRef = useRef(null);
     const [token, setToken] = useState(null);
     const [processing, setProcessing] = useState(false);
     const [honeypot, setHoneypot] = useState('');
@@ -127,6 +128,22 @@ export default function AssessmentPage() {
             if (session.scoreResults) setScoreResults(session.scoreResults);
         }
     }, []);
+
+    // Blank-state detector: if the card renders empty, auto-recover
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (contentRef.current) {
+                const height = contentRef.current.offsetHeight;
+                const hasContent = contentRef.current.textContent?.trim().length > 0;
+                if (height < 50 || !hasContent) {
+                    console.warn('[Intellivance] Blank state detected — auto-resetting session');
+                    clearSession();
+                    window.location.reload();
+                }
+            }
+        }, 3000);
+        return () => clearTimeout(timer);
+    }, [step]);
 
     useEffect(() => {
         if (token && step > 1) {
@@ -547,7 +564,7 @@ export default function AssessmentPage() {
                 <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
                 <div className="max-w-2xl w-full relative z-10 py-8 sm:py-14 lg:py-20 min-h-0">
 
-                    <div className="bg-white border border-theme p-5 sm:p-8 lg:p-12 shadow-sm">
+                    <div ref={contentRef} className="bg-white border border-theme p-5 sm:p-8 lg:p-12 shadow-sm">
 
                         {processing ? renderProcessing() : (
                             <>
