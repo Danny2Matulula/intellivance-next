@@ -69,12 +69,14 @@ export default function Navbar() {
                         <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
                         ACCEPTING_ENGAGEMENTS
                     </div>
-                    <button
-                        onClick={() => { setShowLogin(true); setLoginError(false); }}
-                        className="hidden md:block mono text-[10px] text-neutral-500 uppercase tracking-wider hover:text-black transition-colors cursor-pointer"
+                    <a
+                        href="https://calendly.com/dan-intellivance/30min"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hidden md:block mono text-[10px] text-neutral-900 uppercase tracking-wider hover:text-neutral-600 transition-colors font-semibold"
                     >
-                        Client Portal
-                    </button>
+                        Book a Call
+                    </a>
                     <Link href="/assessment" className="btn-tech">
                         <span>Free Assessment</span>
                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">

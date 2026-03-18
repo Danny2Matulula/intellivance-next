@@ -459,6 +459,9 @@ export default async function BlogPost({ params }) {
                                 />
                             </svg>
                         </Link>
+                        <p className="text-neutral-500 text-sm mt-6">
+                            Or reach out directly: <a href="mailto:hello@intellivance.ai" className="text-[#EAEAE5] underline underline-offset-2 hover:text-white transition-colors">hello@intellivance.ai</a>
+                        </p>
                     </div>
                 </section>
             </main>
