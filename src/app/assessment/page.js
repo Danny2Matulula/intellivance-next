@@ -104,8 +104,20 @@ export default function AssessmentPage() {
         const urlToken = params.get('token');
         const session = loadSession(urlToken);
         if (session) {
-            // Guard: if session saved at step 3 but has no score data, reset
-            if (session.currentStep === 3 && !session.scoreResults) {
+            // Validate session integrity before restoring
+            const isCorrupt =
+                // Step 3 without score data = blank page
+                (session.currentStep === 3 && !session.scoreResults) ||
+                // Step 2+ without any form data = can't render
+                (session.currentStep >= 2 && (!session.formData?.firstName || !session.formData?.email)) ||
+                // Missing critical fields
+                !session.token ||
+                typeof session.currentStep !== 'number' ||
+                session.currentStep < 1 || session.currentStep > 3 ||
+                // Session older than 7 days = stale
+                (session.updatedAt && (Date.now() - new Date(session.updatedAt).getTime()) > 7 * 24 * 60 * 60 * 1000);
+
+            if (isCorrupt) {
                 clearSession();
                 return; // Start fresh
             }
