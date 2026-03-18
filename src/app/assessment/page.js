@@ -80,6 +80,18 @@ export default function AssessmentPage() {
         }
     };
 
+    const fireGoogleAdsConversion = () => {
+        if (typeof window !== 'undefined' && window.gtag) {
+            const gadsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+            const convLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
+            if (gadsId && convLabel) {
+                window.gtag('event', 'conversion', {
+                    send_to: `${gadsId}/${convLabel}`,
+                });
+            }
+        }
+    };
+
     const validateEmail = (email) => {
         if (!email.includes('@') || !email.includes('.')) return false;
         if (!isBusinessEmail(email)) {
@@ -199,6 +211,7 @@ export default function AssessmentPage() {
             if (!validateEmail(formData.email)) return;
             syncWithBackend(false);
             fireEvent('generate_lead', { event_category: 'assessment', event_label: 'email_captured', value: 1 });
+            fireGoogleAdsConversion();
         }
 
         if (step === 2) {
