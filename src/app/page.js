@@ -83,40 +83,14 @@ const howToSchema = {
 };
 
 export default function Home() {
-  // Generate dynamic automation timestamps (server-side)
-  const now = new Date();
-  const seed = now.getHours() * 60 + now.getMinutes();
-
-  const allEvents = [
-    { event: "Email triage completed", tag: "OPS", count: "14 sorted" },
-    { event: "Quote follow-up sent", tag: "REV", count: "$2.4K pipeline" },
-    { event: "Client intake processed", tag: "CRM", count: "3 new leads" },
-    { event: "Daily report generated", tag: "RPT", count: "4 locations" },
-    { event: "Cart recovery triggered", tag: "REV", count: "7 recovered" },
-    { event: "Invoice reminder sent", tag: "REV", count: "$1.8K outstanding" },
-    { event: "Lead score updated", tag: "CRM", count: "9 contacts" },
-    { event: "Dispatch optimized", tag: "OPS", count: "3 routes" },
-    { event: "Review request sent", tag: "REV", count: "12 requests" },
-    { event: "Appointment confirmed", tag: "OPS", count: "5 bookings" },
-    { event: "Proposal auto-drafted", tag: "OPS", count: "$8.2K value" },
-    { event: "Payment reminder sent", tag: "REV", count: "3 invoices" },
-    { event: "Ticket escalation routed", tag: "OPS", count: "2 escalated" },
-    { event: "Onboarding sequence started", tag: "CRM", count: "1 new client" },
-    { event: "Inventory alert triggered", tag: "OPS", count: "4 items low" },
+  // Client results for the hero panel
+  const clientResults = [
+    { industry: "Medical Practice", result: "11.2 hrs/week recovered", detail: "Automated patient follow-ups, intake forms, and appointment reminders", tag: "HEALTHCARE" },
+    { industry: "DTC E-commerce Brand", result: "Cart recovery: 3% → 22%", detail: "AI-powered abandoned cart sequences and post-purchase nurture", tag: "E-COMMERCE" },
+    { industry: "Auto Dealership", result: "$340K pipeline protected", detail: "Automated quote follow-ups that used to fall through the cracks", tag: "AUTOMOTIVE" },
+    { industry: "HVAC Contractor", result: "4.5 hrs/day saved on dispatch", detail: "AI route optimization and automated customer notifications", tag: "FIELD SERVICES" },
+    { industry: "Law Firm", result: "Zero intake leads lost", detail: "Instant client intake processing and conflict-check automation", tag: "LEGAL" },
   ];
-
-  const pool = [...allEvents];
-  const selected = [];
-  for (let i = 0; i < 8; i++) {
-    const idx = (seed + i * 7) % pool.length;
-    selected.push(pool.splice(idx, 1)[0]);
-  }
-  const intervals = [2, 5, 8, 14, 23, 31, 47, 68];
-  const recentAutomations = selected.map((item, i) => {
-    const mins = intervals[i] + (seed % 3);
-    const time = mins >= 60 ? `${Math.floor(mins / 60)}h ago` : `${mins}m ago`;
-    return { ...item, time };
-  });
 
   return (
     <div className="selection:bg-neutral-900 selection:text-white">
@@ -210,31 +184,29 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Live activity feed */}
+              {/* Client results — before/after snapshots */}
               <div className="bg-white/80 backdrop-blur border-b border-theme p-4 overflow-hidden">
                 <div className="mono text-[10px] text-neutral-500 mb-3 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                  LIVE_OPERATIONS
+                  CLIENT_RESULTS
                 </div>
-                <div className="space-y-2.5">
-                  {recentAutomations.map((item, i) => (
-                    <div key={i} className="flex items-start gap-3 group">
-                      <div className="mono text-[9px] text-neutral-400 w-12 shrink-0 pt-0.5">
-                        {item.time}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-xs text-neutral-800 truncate">
-                          {item.event}
-                        </div>
-                        <div className="flex items-center gap-2 mt-0.5">
-                          <span className="mono text-[9px] px-1.5 py-0.5 bg-neutral-100 border border-neutral-200 text-neutral-500">
-                            {item.tag}
-                          </span>
-                          <span className="mono text-[9px] text-neutral-400">
-                            {item.count}
-                          </span>
+                <div className="space-y-3">
+                  {clientResults.map((item, i) => (
+                    <div key={i} className="group">
+                      <div className="flex items-start gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="text-xs font-medium text-neutral-900">
+                            {item.industry}
+                          </div>
+                          <div className="text-[13px] text-neutral-800 font-medium mt-0.5">
+                            {item.result}
+                          </div>
+                          <div className="text-[10px] text-neutral-500 mt-0.5 leading-relaxed">
+                            {item.detail}
+                          </div>
                         </div>
                       </div>
+                      {i < clientResults.length - 1 && <div className="border-b border-theme mt-3"></div>}
                     </div>
                   ))}
                 </div>
@@ -247,11 +219,11 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-3 gap-x-4 gap-y-2">
                   {[
-                    { label: "AUTO", hrs: "14.2" },
-                    { label: "MED", hrs: "11.8" },
-                    { label: "FIELD", hrs: "9.5" },
-                    { label: "DTC", hrs: "12.1" },
-                    { label: "LAW", hrs: "7.3" },
+                    { label: "AUTOMOTIVE", hrs: "14.2" },
+                    { label: "MEDICAL", hrs: "11.8" },
+                    { label: "FIELD SVC", hrs: "9.5" },
+                    { label: "E-COMM", hrs: "12.1" },
+                    { label: "LEGAL", hrs: "7.3" },
                     { label: "HVAC", hrs: "10.6" },
                   ].map((v, i) => (
                     <div key={i} className="flex items-center justify-between">
