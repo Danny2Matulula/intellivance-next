@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { scoreAssessment } from '@/data/assessment-questions';
 
 const GHL_API = 'https://services.leadconnectorhq.com';
 const GHL_LOCATION = 'BQJFK9oHXVAYJotxKSiR';
@@ -197,7 +198,21 @@ export async function POST(req) {
         if (process.env.GHL_PIT_TOKEN && formData.email) {
             try {
                 const tags = ['assessment-lead'];
-                if (completed) tags.push('assessment-completed');
+                let scoreResults = null;
+                if (completed) {
+                    tags.push('assessment-completed');
+                    // Score the assessment and add rating tags for CRM triage
+                    const answers = {};
+                    ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(q => {
+                        if (formData[q]) answers[q] = formData[q];
+                    });
+                    if (Object.keys(answers).length === 6) {
+                        scoreResults = scoreAssessment(answers);
+                        tags.push(`score-${scoreResults.totalScore}`);
+                        const ratingSlug = scoreResults.overallRating.toLowerCase().replace(/[^a-z]+/g, '-').replace(/-+$/, '');
+                        tags.push(`rating-${ratingSlug}`);
+                    }
+                }
                 if (formData.timeline === 'urgent') tags.push('urgent-timeline');
                 if (formData.industry) tags.push(`industry-${formData.industry}`);
 
@@ -290,6 +305,28 @@ export async function POST(req) {
                         if (completed) {
                             const { subject, html } = confirmationEmail(formData.firstName);
                             emailSent = await sendGHLEmail(contactId, subject, html, process.env.GHL_PIT_TOKEN);
+
+                            // 6. Add score breakdown as a CRM note
+                            if (scoreResults) {
+                                const CATEGORY_LABELS = { automation: 'Process Automation', techStack: 'Tech Stack', manualWork: 'Manual Work', scalability: 'Scalability' };
+                                const noteLines = [
+                                    `AI Readiness Score: ${scoreResults.totalScore}/100 — ${scoreResults.overallRating}`,
+                                    '',
+                                    ...Object.entries(scoreResults.categories).map(([k, v]) => {
+                                        const r = scoreResults.ratings[k];
+                                        return `${CATEGORY_LABELS[k] || k}: ${v}/25 (${r?.label || 'N/A'})`;
+                                    }),
+                                ];
+                                await fetch(`${GHL_API}/contacts/${contactId}/notes`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Authorization': `Bearer ${process.env.GHL_PIT_TOKEN}`,
+                                        'Version': '2021-07-28',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ body: noteLines.join('\n'), userId: contactId }),
+                                }).catch(e => console.error('GHL note error:', e));
+                            }
                         }
                     }
                 } else {
