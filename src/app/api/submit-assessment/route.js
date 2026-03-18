@@ -33,9 +33,9 @@ const CF = {
     UTM_CAMPAIGN: 'Qgwt9WzZM3iHveY4nmnM',
     UTM_CLICK_ID: 'DfXPKUmtAxRMuVvsi80N',
     // AI Readiness Score (Issue #7 — enables CRM triage by score)
-    AI_SCORE: process.env.GHL_CF_AI_SCORE || '',
-    AI_RATING: process.env.GHL_CF_AI_RATING || '',
-    AI_WASTE_ESTIMATE: process.env.GHL_CF_AI_WASTE || '',
+    AI_SCORE: 'gz3On3pBONKLJr7RLo9v',
+    AI_RATING: 'iQV147uydKUruw9f1j4S',
+    AI_WASTE_ESTIMATE: 'nnlDt1mlWmp2sVQY85j0',
 };
 
 // ── Email Templates ────────────────────────────────────────────────────────
