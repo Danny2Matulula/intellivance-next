@@ -461,7 +461,7 @@ export default function AssessmentPage() {
                                     {wasteEstimate.formatted}<span className="text-lg font-normal text-neutral-400">/year</span>
                                 </div>
                                 <p className="text-[12px] text-neutral-500 leading-relaxed max-w-sm mx-auto">
-                                    Based on your responses, your current operations may be costing this much in inefficiency, missed revenue, and wasted team hours.
+                                    Based on industry benchmarks for businesses like yours. Your actual number depends on team size, tools, and volume — we&apos;ll pinpoint it on a call.
                                 </p>
                             </motion.div>
                         )}
@@ -537,9 +537,6 @@ export default function AssessmentPage() {
                                 Book a Free Strategy Call
                                 <ArrowRight className="w-3.5 h-3.5" />
                             </a>
-                            <p className="text-center text-[11px] text-neutral-500 leading-relaxed max-w-xs mx-auto">
-                                If we can&apos;t identify at least $50K/yr in recoverable waste on your call, the consultation is on us.
-                            </p>
                             <p className="text-center text-[10px] text-neutral-400">
                                 $4.2M+ in operations automated &middot; 100% client retention
                             </p>
