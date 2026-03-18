@@ -197,7 +197,7 @@ export default function Footer() {
                             hello@intellivance.ai
                         </a>
                         <a
-                            href="https://calendly.com/dan-intellivance/30min"
+                            href="https://calendly.com/intellivance/30min"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mono text-xs text-neutral-400 hover:text-neutral-900 transition-colors"

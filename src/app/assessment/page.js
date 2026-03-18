@@ -528,7 +528,7 @@ export default function AssessmentPage() {
                                 {downloadingPDF ? 'Generating PDF...' : 'Download Full Report (PDF)'}
                             </button>
                             <a
-                                href="https://calendly.com/dan-intellivance/30min"
+                                href="https://calendly.com/intellivance/30min"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => fireEvent('calendly_click', { event_category: 'assessment', event_label: 'book_strategy_call', value: 1 })}

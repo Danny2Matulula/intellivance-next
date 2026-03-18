@@ -70,7 +70,7 @@ export default function Navbar() {
                         ACCEPTING_ENGAGEMENTS
                     </div>
                     <a
-                        href="https://calendly.com/dan-intellivance/30min"
+                        href="https://calendly.com/intellivance/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hidden md:block mono text-[10px] text-neutral-900 uppercase tracking-wider hover:text-neutral-600 transition-colors font-semibold"
