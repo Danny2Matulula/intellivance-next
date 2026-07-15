@@ -1,0 +1,265 @@
+.sequence {
+  position: relative;
+  min-width: 0;
+}
+
+.list {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+
+.rail {
+  position: absolute;
+  z-index: 2;
+  top: 32px;
+  bottom: 32px;
+  left: 22px;
+  width: 2px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 17%, transparent);
+  pointer-events: none;
+}
+
+.railProgress {
+  position: absolute;
+  inset: 0;
+  height: var(--process-progress);
+  background: linear-gradient(180deg, var(--blue), var(--signal));
+  transform-origin: top;
+  transition: height 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.railProgress::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  bottom: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--signal) 20%, transparent);
+}
+
+.step {
+  position: relative;
+  min-height: 190px;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) minmax(150px, 180px);
+  gap: 24px;
+  align-items: start;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--ink);
+  isolation: isolate;
+  transition:
+    padding 480ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 320ms ease;
+}
+
+.step::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -24px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--blue) 13%, transparent), transparent 74%),
+    var(--paper-light);
+  opacity: 0;
+  transform: scaleX(0.96);
+  transform-origin: left center;
+  transition:
+    opacity 300ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.step[data-active="true"] {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.step[data-active="true"]::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.marker {
+  position: relative;
+  z-index: 3;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--blue);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  transition:
+    color 300ms ease,
+    background 300ms ease,
+    border-color 300ms ease,
+    transform 480ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 300ms ease;
+}
+
+.step[data-complete="true"] .marker {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+}
+
+.step[data-active="true"] .marker {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--ink);
+  transform: scale(1.12);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--signal) 18%, transparent);
+}
+
+.copy {
+  min-width: 0;
+}
+
+.stage {
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  color: var(--blue);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    max-height 360ms ease,
+    margin 360ms ease,
+    opacity 260ms ease,
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.step[data-active="true"] .stage {
+  max-height: 20px;
+  margin-bottom: 12px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.copy h3 {
+  margin: 0 0 12px;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.step[data-active="true"] .copy h3 {
+  transform: translateX(6px);
+}
+
+.copy p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--type-body);
+  line-height: 1.55;
+  transition: color 300ms ease;
+}
+
+.step[data-active="true"] .copy p {
+  color: var(--ink);
+}
+
+.output {
+  justify-self: end;
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--type-label);
+  line-height: 1.4;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition:
+    color 300ms ease,
+    background 300ms ease,
+    border-color 300ms ease,
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.output > span {
+  color: var(--blue);
+  transition: transform 300ms ease;
+}
+
+.step[data-active="true"] .output {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+  transform: translateX(-6px);
+}
+
+.step[data-active="true"] .output > span {
+  color: var(--acid);
+  transform: translateX(2px);
+}
+
+@media (max-width: 760px) {
+  .rail {
+    left: 18px;
+  }
+
+  .step {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .step[data-active="true"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .step::before {
+    right: -16px;
+    left: -16px;
+  }
+
+  .marker {
+    width: 38px;
+    height: 38px;
+  }
+
+  .output {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
+  }
+
+  .step[data-active="true"] .output {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railProgress,
+  .step,
+  .step::before,
+  .marker,
+  .stage,
+  .copy h3,
+  .copy p,
+  .output,
+  .output > span {
+    transition: none;
+  }
+}

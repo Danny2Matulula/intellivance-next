@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { scoreAssessment, estimateAnnualWaste } from '@/data/assessment-questions';
 
 const GHL_API = 'https://services.leadconnectorhq.com';
 const GHL_LOCATION = 'BQJFK9oHXVAYJotxKSiR';
@@ -32,10 +31,6 @@ const CF = {
     UTM_MEDIUM: '9HL9S6QRlF7xW1R4udoK',
     UTM_CAMPAIGN: 'Qgwt9WzZM3iHveY4nmnM',
     UTM_CLICK_ID: 'DfXPKUmtAxRMuVvsi80N',
-    // AI Readiness Score (Issue #7 — enables CRM triage by score)
-    AI_SCORE: 'gz3On3pBONKLJr7RLo9v',
-    AI_RATING: 'iQV147uydKUruw9f1j4S',
-    AI_WASTE_ESTIMATE: 'nnlDt1mlWmp2sVQY85j0',
 };
 
 // ── Email Templates ────────────────────────────────────────────────────────
@@ -150,7 +145,6 @@ export async function POST(req) {
         let dbSuccess = false;
         let ghlSuccess = false;
         let emailSent = false;
-        let contactId = null;
 
         // 1. Persist to Supabase
         if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
@@ -202,21 +196,7 @@ export async function POST(req) {
         if (process.env.GHL_PIT_TOKEN && formData.email) {
             try {
                 const tags = ['assessment-lead'];
-                let scoreResults = null;
-                if (completed) {
-                    tags.push('assessment-completed');
-                    // Score the assessment and add rating tags for CRM triage
-                    const answers = {};
-                    ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].forEach(q => {
-                        if (formData[q]) answers[q] = formData[q];
-                    });
-                    if (Object.keys(answers).length === 6) {
-                        scoreResults = scoreAssessment(answers);
-                        tags.push(`score-${scoreResults.totalScore}`);
-                        const ratingSlug = scoreResults.overallRating.toLowerCase().replace(/[^a-z]+/g, '-').replace(/-+$/, '');
-                        tags.push(`rating-${ratingSlug}`);
-                    }
-                }
+                if (completed) tags.push('assessment-completed');
                 if (formData.timeline === 'urgent') tags.push('urgent-timeline');
                 if (formData.industry) tags.push(`industry-${formData.industry}`);
 
@@ -252,7 +232,7 @@ export async function POST(req) {
                 if (ghlRes.ok) {
                     ghlSuccess = true;
                     const ghlData = await ghlRes.json();
-                    contactId = ghlData?.contact?.id;
+                    const contactId = ghlData?.contact?.id;
 
                     if (contactId) {
                         // 3. Populate custom fields on contact
@@ -266,17 +246,6 @@ export async function POST(req) {
                         if (formData.teamSize) customFieldValues.push({ id: CF.TEAM_SIZE, value: formData.teamSize });
                         if (formData.moneyLoss) customFieldValues.push({ id: CF.MONEY_LOSS, value: formData.moneyLoss });
                         if (formData.weeklyWorkflow) customFieldValues.push({ id: CF.WEEKLY_WORKFLOW, value: formData.weeklyWorkflow });
-
-                        // AI Readiness Score custom fields (Issue #7)
-                        if (scoreResults) {
-                            if (CF.AI_SCORE) customFieldValues.push({ id: CF.AI_SCORE, value: String(scoreResults.totalScore) });
-                            if (CF.AI_RATING) customFieldValues.push({ id: CF.AI_RATING, value: scoreResults.overallRating });
-                            // Waste estimate for CRM display
-                            if (CF.AI_WASTE_ESTIMATE) {
-                                const waste = estimateAnnualWaste(scoreResults.categories);
-                                customFieldValues.push({ id: CF.AI_WASTE_ESTIMATE, value: waste.formatted });
-                            }
-                        }
 
                         // UTM Attribution — write to GHL so leads are filterable by source
                         if (utmData?.utm_source) customFieldValues.push({ id: CF.UTM_SOURCE, value: utmData.utm_source });
@@ -320,28 +289,6 @@ export async function POST(req) {
                         if (completed) {
                             const { subject, html } = confirmationEmail(formData.firstName);
                             emailSent = await sendGHLEmail(contactId, subject, html, process.env.GHL_PIT_TOKEN);
-
-                            // 6. Add score breakdown as a CRM note
-                            if (scoreResults) {
-                                const CATEGORY_LABELS = { automation: 'Process Automation', techStack: 'Tech Stack', manualWork: 'Manual Work', scalability: 'Scalability' };
-                                const noteLines = [
-                                    `AI Readiness Score: ${scoreResults.totalScore}/100 — ${scoreResults.overallRating}`,
-                                    '',
-                                    ...Object.entries(scoreResults.categories).map(([k, v]) => {
-                                        const r = scoreResults.ratings[k];
-                                        return `${CATEGORY_LABELS[k] || k}: ${v}/25 (${r?.label || 'N/A'})`;
-                                    }),
-                                ];
-                                await fetch(`${GHL_API}/contacts/${contactId}/notes`, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Authorization': `Bearer ${process.env.GHL_PIT_TOKEN}`,
-                                        'Version': '2021-07-28',
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({ body: noteLines.join('\n'), userId: contactId }),
-                                }).catch(e => console.error('GHL note error:', e));
-                            }
                         }
                     }
                 } else {
@@ -357,7 +304,6 @@ export async function POST(req) {
             persisted: dbSuccess,
             syncedToGHL: ghlSuccess,
             emailSent,
-            contactId,
         }, { status: 200 });
 
     } catch (error) {

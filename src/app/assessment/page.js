@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, Shield, Mail, Download } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useUTM, utmToQueryString } from '@/hooks/useUTM';
-import { QUESTIONS, scoreAssessment, getScoreSummary, estimateAnnualWaste } from '@/data/assessment-questions';
+import { QUESTIONS, scoreAssessment, getScoreSummary } from '@/data/assessment-questions';
 
 // --- Token / Session Management ---
 const TOKEN_KEY = 'intellivance_assessment_token';
@@ -44,7 +44,6 @@ const TOTAL_STEPS = 3;
 
 export default function AssessmentPage() {
     const [step, setStep] = useState(1);
-    const contentRef = useRef(null);
     const [token, setToken] = useState(null);
     const [processing, setProcessing] = useState(false);
     const [honeypot, setHoneypot] = useState('');
@@ -80,18 +79,6 @@ export default function AssessmentPage() {
         }
     };
 
-    const fireGoogleAdsConversion = () => {
-        if (typeof window !== 'undefined' && window.gtag) {
-            const gadsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
-            const convLabel = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
-            if (gadsId && convLabel) {
-                window.gtag('event', 'conversion', {
-                    send_to: `${gadsId}/${convLabel}`,
-                });
-            }
-        }
-    };
-
     const validateEmail = (email) => {
         if (!email.includes('@') || !email.includes('.')) return false;
         if (!isBusinessEmail(email)) {
@@ -110,52 +97,16 @@ export default function AssessmentPage() {
     });
 
     useEffect(() => {
-        // Scroll to top on mount so form is always visible
-        window.scrollTo(0, 0);
-
         const params = new URLSearchParams(window.location.search);
         const urlToken = params.get('token');
         const session = loadSession(urlToken);
         if (session) {
-            // Validate session integrity before restoring
-            const isCorrupt =
-                // Step 3 without score data = blank page
-                (session.currentStep === 3 && !session.scoreResults) ||
-                // Step 2+ without any form data = can't render
-                (session.currentStep >= 2 && (!session.formData?.firstName || !session.formData?.email)) ||
-                // Missing critical fields
-                !session.token ||
-                typeof session.currentStep !== 'number' ||
-                session.currentStep < 1 || session.currentStep > 3 ||
-                // Session older than 7 days = stale
-                (session.updatedAt && (Date.now() - new Date(session.updatedAt).getTime()) > 7 * 24 * 60 * 60 * 1000);
-
-            if (isCorrupt) {
-                clearSession();
-                return; // Start fresh
-            }
             setToken(session.token);
             setFormData(session.formData);
             setStep(session.currentStep);
             if (session.scoreResults) setScoreResults(session.scoreResults);
         }
     }, []);
-
-    // Blank-state detector: if the card renders empty, auto-recover
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            if (contentRef.current) {
-                const height = contentRef.current.offsetHeight;
-                const hasContent = contentRef.current.textContent?.trim().length > 0;
-                if (height < 50 || !hasContent) {
-                    console.warn('[Intellivance] Blank state detected — auto-resetting session');
-                    clearSession();
-                    window.location.reload();
-                }
-            }
-        }, 3000);
-        return () => clearTimeout(timer);
-    }, [step]);
 
     useEffect(() => {
         if (token && step > 1) {
@@ -172,9 +123,9 @@ export default function AssessmentPage() {
     };
 
     const syncWithBackend = async (isCompleted = false) => {
-        if (!token && !isCompleted) return null;
+        if (!token && !isCompleted) return;
         try {
-            const res = await fetch('/api/submit-assessment', {
+            await fetch('/api/submit-assessment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -186,14 +137,9 @@ export default function AssessmentPage() {
                     utmData,
                 }),
             });
-            if (res.ok) {
-                const data = await res.json();
-                return data.contactId || null;
-            }
         } catch (e) {
             console.error('Sync failed', e);
         }
-        return null;
     };
 
     const computeScore = useCallback(() => {
@@ -211,23 +157,22 @@ export default function AssessmentPage() {
             if (!validateEmail(formData.email)) return;
             syncWithBackend(false);
             fireEvent('generate_lead', { event_category: 'assessment', event_label: 'email_captured', value: 1 });
-            fireGoogleAdsConversion();
         }
 
         if (step === 2) {
             // Compute score, show processing, then reveal
             computeScore();
             setProcessing(true);
-            setTimeout(async () => {
+            setTimeout(() => {
                 setProcessing(false);
-                const cId = await syncWithBackend(true);
+                syncWithBackend(true);
                 // Trigger report email in background
                 try {
                     const answers = { q1: formData.q1, q2: formData.q2, q3: formData.q3, q4: formData.q4, q5: formData.q5, q6: formData.q6 };
                     fetch('/api/generate-report', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ answers, firstName: formData.firstName, email: formData.email, contactId: cId, returnPDF: false }),
+                        body: JSON.stringify({ answers, firstName: formData.firstName, email: formData.email, returnPDF: false }),
                     }).catch(e => console.error('Report email error:', e));
                 } catch (e) {
                     console.error('Report trigger error:', e);
@@ -442,7 +387,6 @@ export default function AssessmentPage() {
             case 3:
                 if (!scoreResults) return null;
                 const { totalScore, maxScore, overallRating, categories, ratings, recommendations } = scoreResults;
-                const wasteEstimate = estimateAnnualWaste(categories);
                 return (
                     <div className="space-y-8">
                         {/* Score circle */}
@@ -460,24 +404,6 @@ export default function AssessmentPage() {
                                 {getScoreSummary(totalScore, formData.firstName)}
                             </p>
                         </div>
-
-                        {/* Estimated annual waste callout */}
-                        {wasteEstimate.total > 0 && totalScore < 80 && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.4, duration: 0.5 }}
-                                className="bg-[#FFF8F0] border border-amber-200 p-5 text-center"
-                            >
-                                <div className="mono text-[10px] text-amber-600 uppercase tracking-widest mb-2">Estimated Annual Impact</div>
-                                <div className="text-3xl font-bold text-neutral-900 tracking-tight mb-1">
-                                    {wasteEstimate.formatted}<span className="text-lg font-normal text-neutral-400">/year</span>
-                                </div>
-                                <p className="text-[12px] text-neutral-500 leading-relaxed max-w-sm mx-auto">
-                                    Based on industry benchmarks for businesses like yours. Your actual number depends on team size, tools, and volume — we&apos;ll pinpoint it on a call.
-                                </p>
-                            </motion.div>
-                        )}
 
                         {/* Category breakdown */}
                         <div>
@@ -541,7 +467,7 @@ export default function AssessmentPage() {
                                 {downloadingPDF ? 'Generating PDF...' : 'Download Full Report (PDF)'}
                             </button>
                             <a
-                                href="https://calendly.com/intellivance/30min"
+                                href="https://calendly.com/dan-intellivance/30min"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={() => fireEvent('calendly_click', { event_category: 'assessment', event_label: 'book_strategy_call', value: 1 })}
@@ -550,8 +476,8 @@ export default function AssessmentPage() {
                                 Book a Free Strategy Call
                                 <ArrowRight className="w-3.5 h-3.5" />
                             </a>
-                            <p className="text-center text-[10px] text-neutral-400">
-                                $4.2M+ in operations automated &middot; 100% client retention
+                            <p className="text-center text-[11px] text-neutral-400">
+                                We&apos;ve automated $4.2M+ in operations. 100% client retention.
                             </p>
                         </div>
                     </div>
@@ -574,7 +500,7 @@ export default function AssessmentPage() {
                 <div className="absolute inset-0 grid-bg opacity-20 pointer-events-none"></div>
                 <div className="max-w-2xl w-full relative z-10 py-8 sm:py-14 lg:py-20 min-h-0">
 
-                    <div ref={contentRef} className="bg-white border border-theme p-5 sm:p-8 lg:p-12 shadow-sm">
+                    <div className="bg-white border border-theme p-5 sm:p-8 lg:p-12 shadow-sm">
 
                         {processing ? renderProcessing() : (
                             <>

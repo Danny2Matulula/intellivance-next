@@ -389,7 +389,7 @@ function ScorecardDocument({ data }) {
                         <Text style={s.sectionLabel}>Action Items</Text>
                         <Text style={s.sectionTitle}>What To Fix First</Text>
                         <Text style={s.sectionSubtitle}>
-                            These recommendations are prioritized by impact. Start with the categories rated "Critical" or "Needs Work" — that's where the biggest ROI lives.
+                            These recommendations are prioritized by impact. Start with the categories rated &quot;Critical&quot; or &quot;Needs Work&quot; — that&apos;s where the biggest ROI lives.
                         </Text>
 
                         {Object.entries(recommendations).map(([key, items]) => (
@@ -414,9 +414,9 @@ function ScorecardDocument({ data }) {
             {/* CTA Page */}
             <Page size="LETTER" style={s.page}>
                 <View style={s.ctaPage}>
-                    <Text style={s.ctaTitle}>Ready to fix what's broken?</Text>
+                    <Text style={s.ctaTitle}>Ready to fix what&apos;s broken?</Text>
                     <Text style={s.ctaBody}>
-                        This scorecard identified the gaps. We build the solutions. Book a free 15-minute strategy call and we'll walk through your results together.
+                        This scorecard identified the gaps. We build the solutions. Book a free 15-minute strategy call and we&apos;ll walk through your results together.
                     </Text>
                     <View style={s.ctaButton}>
                         <Text style={s.ctaButtonText}>BOOK YOUR CALL →</Text>

@@ -17,19 +17,18 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata = {
   metadataBase: new URL("https://intellivance.ai"),
   title: {
-    default: "Intellivance — AI-Powered Operations & Strategic Advisory",
+    default: "Intellivance — Custom Software Solutions",
     template: "%s | Intellivance",
   },
   description:
-    "We build AI-powered systems that run your business behind the scenes. Get a free operations roadmap in 48 hours — what to fix, in what order, what it saves you.",
+    "Custom web applications, internal tools, client portals, integrations, and software modernization built around the way your business works.",
   keywords: [
-    "AI operations",
-    "AI consulting",
-    "AI business consulting",
-    "operational efficiency",
-    "AI-powered operations",
-    "strategic advisory",
-    "business intelligence",
+    "custom software development",
+    "web application development",
+    "internal tools",
+    "client portals",
+    "software integration",
+    "software modernization",
   ],
   authors: [{ name: "Intellivance" }],
   creator: "Intellivance",
@@ -38,24 +37,15 @@ export const metadata = {
     locale: "en_US",
     url: "https://intellivance.ai",
     siteName: "Intellivance",
-    title: "Intellivance — AI-Powered Operations & Strategic Advisory",
+    title: "Intellivance — Custom Software Solutions",
     description:
-      "We build AI-powered systems that run your business behind the scenes. Focus on what actually grows the business.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Intellivance — AI-Powered Operations",
-      },
-    ],
+      "Software built around your business—not the other way around.",
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Intellivance — AI-Powered Operations & Strategic Advisory",
+    card: "summary",
+    title: "Intellivance — Custom Software Solutions",
     description:
-      "We build AI-powered systems that run your business behind the scenes.",
-    images: ["/og-image.png"],
+      "Custom software for work that does not fit in a box.",
   },
   robots: {
     index: true,
@@ -73,44 +63,36 @@ export const metadata = {
   },
 };
 
-// Organization JSON-LD Schema
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Intellivance",
   url: "https://intellivance.ai",
-  logo: "https://intellivance.ai/logo.png",
+  email: "hello@intellivance.ai",
   description:
-    "AI-powered operations and strategic advisory for businesses across 12+ industries.",
-  foundingDate: "2024",
+    "A custom software company designing and building web applications, internal tools, portals, integrations, and modern software systems.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",
-    url: "https://intellivance.ai/assessment",
+    email: "hello@intellivance.ai",
+    url: "https://intellivance.ai/#contact",
   },
-  sameAs: [
-    "https://linkedin.com/company/intellivance",
-  ],
+  sameAs: ["https://www.linkedin.com/company/intellivance-ai/"],
   areaServed: "US",
   serviceType: [
-    "AI Operations",
-    "AI Consulting",
-    "AI Business Consulting",
-    "Strategic Advisory",
+    "Custom Software Development",
+    "Web Application Development",
+    "Internal Tools",
+    "Software Integration",
+    "Software Modernization",
   ],
 };
 
-// WebSite JSON-LD Schema (enables sitelinks search box)
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Intellivance",
   url: "https://intellivance.ai",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://intellivance.ai/blog?q={search_term_string}",
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({ children }) {
@@ -118,8 +100,6 @@ export default function RootLayout({ children }) {
   const ga4Id = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
   const bingUetId = process.env.NEXT_PUBLIC_BING_UET_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-
-  // Use GA4 ID for gtag loader if available, else Google Ads ID
   const gtagLoadId = ga4Id || gadsId;
 
   return (
@@ -127,24 +107,17 @@ export default function RootLayout({ children }) {
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         {children}
 
-        {/* Google Tag (gtag.js) — loads GA4 + Google Ads */}
-        {gtagLoadId && (
+        {gtagLoadId ? (
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${gtagLoadId}`}
@@ -158,16 +131,15 @@ export default function RootLayout({ children }) {
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  ${ga4Id ? `gtag('config', '${ga4Id}');` : ''}
-                  ${gadsId ? `gtag('config', '${gadsId}');` : ''}
+                  ${ga4Id ? `gtag('config', '${ga4Id}');` : ""}
+                  ${gadsId ? `gtag('config', '${gadsId}');` : ""}
                 `,
               }}
             />
           </>
-        )}
+        ) : null}
 
-        {/* Microsoft Advertising UET Tag */}
-        {bingUetId && (
+        {bingUetId ? (
           <Script
             id="uet-init"
             strategy="afterInteractive"
@@ -175,10 +147,9 @@ export default function RootLayout({ children }) {
               __html: `(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t);n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||(o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)};var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i)})(window,document,"script","uetq",{ti:"${bingUetId}",enableAutoSpaTracking:true});`,
             }}
           />
-        )}
+        ) : null}
 
-        {/* Microsoft Clarity */}
-        {clarityId && (
+        {clarityId ? (
           <Script
             id="clarity-init"
             strategy="afterInteractive"
@@ -186,7 +157,7 @@ export default function RootLayout({ children }) {
               __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","${clarityId}");`,
             }}
           />
-        )}
+        ) : null}
       </body>
     </html>
   );

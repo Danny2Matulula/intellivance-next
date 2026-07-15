@@ -23,32 +23,36 @@ export function useUTM() {
     const [utmData, setUtmData] = useState({});
 
     useEffect(() => {
-        // Check sessionStorage first (already captured this session)
-        const stored = sessionStorage.getItem(UTM_STORAGE_KEY);
-        if (stored) {
-            try {
-                setUtmData(JSON.parse(stored));
-                return;
-            } catch { /* corrupted, re-capture */ }
-        }
-
-        // Capture from URL
-        const params = new URLSearchParams(window.location.search);
-        const captured = {};
-        let hasAny = false;
-
-        UTM_PARAMS.forEach(key => {
-            const val = params.get(key);
-            if (val) {
-                captured[key] = val;
-                hasAny = true;
+        const timer = window.setTimeout(() => {
+            // Check sessionStorage first (already captured this session)
+            const stored = sessionStorage.getItem(UTM_STORAGE_KEY);
+            if (stored) {
+                try {
+                    setUtmData(JSON.parse(stored));
+                    return;
+                } catch { /* corrupted, re-capture */ }
             }
-        });
 
-        if (hasAny) {
-            sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(captured));
-            setUtmData(captured);
-        }
+            // Capture from URL
+            const params = new URLSearchParams(window.location.search);
+            const captured = {};
+            let hasAny = false;
+
+            UTM_PARAMS.forEach(key => {
+                const val = params.get(key);
+                if (val) {
+                    captured[key] = val;
+                    hasAny = true;
+                }
+            });
+
+            if (hasAny) {
+                sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(captured));
+                setUtmData(captured);
+            }
+        }, 0);
+
+        return () => window.clearTimeout(timer);
     }, []);
 
     return utmData;

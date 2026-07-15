@@ -1,0 +1,140 @@
+.form,
+.success {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: clamp(24px, 3.4vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px);
+}
+
+.formIntro {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.formIntro span,
+.successLabel {
+  color: #d9ff43;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--type-label);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.formIntro p { margin: 0; color: #aeb0aa; font-size: 14px; }
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.field { display: grid; gap: 10px; margin-bottom: 20px; }
+
+.field > span {
+  color: #f5f5f0;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--type-label);
+  font-weight: 650;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.field small { margin-left: 6px; color: #a0a29b; font-size: 11px; font-weight: 500; }
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0;
+  outline: none;
+  background: rgba(4, 5, 4, 0.42);
+  color: #fff;
+  font: inherit;
+  font-size: var(--type-body);
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.field input { min-height: 51px; padding: 12px 14px; }
+.field textarea { min-height: 144px; padding: 14px; line-height: 1.5; resize: vertical; }
+.field textarea::placeholder { color: #858780; opacity: 1; }
+.field input:hover, .field textarea:hover { border-color: rgba(255, 255, 255, 0.42); }
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+  border-color: #d9ff43;
+  background: rgba(4, 5, 4, 0.7);
+  box-shadow: 0 0 0 3px rgba(217, 255, 67, 0.14);
+}
+
+.formFooter { display: flex; align-items: center; gap: 22px; }
+
+.formFooter button {
+  min-height: 54px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  padding: 14px 18px;
+  border: 1px solid #d9ff43;
+  border-radius: 0;
+  background: #d9ff43;
+  color: #11130f;
+  cursor: pointer;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: var(--type-label);
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.formFooter button:hover:not(:disabled) { transform: translateY(-3px); background: #e4ff79; }
+.formFooter button:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.formFooter button:disabled { cursor: wait; opacity: 0.66; }
+.formFooter p { max-width: 260px; margin: 0; color: #969892; font-size: var(--type-caption); line-height: 1.5; }
+.formFooter a, .error a, .success a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+
+.error {
+  margin: 20px 0 0;
+  padding: 13px 15px;
+  border-left: 2px solid #ff826f;
+  background: rgba(255, 89, 64, 0.1);
+  color: #ffd8d1;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.success {
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.success h3 { max-width: 540px; margin: 28px 0 0; color: #fff; font-size: clamp(36px, 4.8vw, 68px); line-height: 0.98; letter-spacing: -0.06em; }
+.success p { margin: 24px 0 34px; color: #bfc0ba; font-size: 17px; }
+.success a { font-family: var(--font-jetbrains-mono), monospace; font-size: var(--type-label); text-transform: uppercase; }
+
+@media (max-width: 620px) {
+  .formIntro, .formFooter { align-items: flex-start; flex-direction: column; }
+  .fieldGrid { grid-template-columns: 1fr; gap: 0; }
+  .formFooter button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field input, .field textarea, .formFooter button { transition: none; }
+}
