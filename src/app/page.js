@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import KineticOrbit from "@/components/KineticOrbit";
 
 const practices = [
   { number: "01", title: "Revenue & Growth", copy: "Positioning, offers, pipeline, pricing, proposals, account growth, and the operating cadence behind predictable execution." },
@@ -30,15 +31,13 @@ export default function Home() {
               <Link className="text-link" href="/contact">Start a conversation <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
-          <div className="operator-hero-panel" aria-label="The layers of an operating system">
-            <div className="operator-panel-label">Operating system / 001</div>
-            {["Decision", "Ownership", "Process", "Data", "Automation", "Software"].map((layer, index) => <div className="operator-layer" key={layer}><span>{String(index + 1).padStart(2, "0")}</span><strong>{layer}</strong></div>)}
-            <div className="operator-output"><span>Output</span><strong>Clear execution</strong></div>
-          </div>
+          <KineticOrbit />
         </section>
 
-        <div className="capability-strip" role="list" aria-label="Operating capabilities">
-          <span role="listitem">Commercial strategy</span><span role="listitem">Operating transformation</span><span role="listitem">AI enablement</span><span role="listitem">Hands-on execution</span>
+        <div className="capability-strip" aria-label="Operating capabilities">
+          <div className="capability-track" role="list">
+            {["Commercial strategy", "Operating transformation", "AI enablement", "Hands-on execution", "Commercial strategy", "Operating transformation", "AI enablement", "Hands-on execution"].map((item, index) => <span role="listitem" aria-hidden={index > 3 ? "true" : undefined} key={`${item}-${index}`}>{item}<b aria-hidden="true">✦</b></span>)}
+          </div>
         </div>
 
         <section className="statement-section section-pad" aria-labelledby="statement-title">

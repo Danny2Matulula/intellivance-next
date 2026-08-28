@@ -1,15 +1,15 @@
-import { Manrope, Newsreader } from "next/font/google";
+import { DM_Sans, Sora } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -40,14 +40,14 @@ export const metadata = {
     title: "Intellivance — Build the operating system behind growth",
     description:
       "Strategy, systems, and hands-on execution for businesses in motion.",
-    images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Intellivance — Build the operating system behind growth" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Intellivance — Build the operating system behind growth" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Intellivance — Build the operating system behind growth",
     description:
       "Strategy, systems, and hands-on execution for businesses in motion.",
-    images: ["/og.png"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -99,7 +99,7 @@ export default function RootLayout({ children }) {
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </head>
-      <body className={`${manrope.variable} ${newsreader.variable}`}>
+      <body className={`${dmSans.variable} ${sora.variable}`}>
         {children}
         {gtagLoadId ? (
           <>
