@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
+  variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -17,18 +17,18 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata = {
   metadataBase: new URL("https://intellivance.ai"),
   title: {
-    default: "Intellivance — Custom Software Solutions",
+    default: "Intellivance — Operating Partner for Growth & Transformation",
     template: "%s | Intellivance",
   },
   description:
-    "Custom web applications, internal tools, client portals, integrations, and software modernization built around the way your business works.",
+    "Intellivance helps leaders redesign revenue, operations, and technology into an executable operating system for growth.",
   keywords: [
-    "custom software development",
-    "web application development",
-    "internal tools",
-    "client portals",
-    "software integration",
-    "software modernization",
+    "operating partner",
+    "business transformation",
+    "revenue operations",
+    "growth strategy",
+    "AI enablement",
+    "operating systems",
   ],
   authors: [{ name: "Intellivance" }],
   creator: "Intellivance",
@@ -37,15 +37,17 @@ export const metadata = {
     locale: "en_US",
     url: "https://intellivance.ai",
     siteName: "Intellivance",
-    title: "Intellivance — Custom Software Solutions",
+    title: "Intellivance — Build the operating system behind growth",
     description:
-      "Software built around your business—not the other way around.",
+      "Strategy, systems, and hands-on execution for businesses in motion.",
+    images: [{ url: "/og.png", width: 1734, height: 907, alt: "Intellivance — Build the operating system behind growth" }],
   },
   twitter: {
-    card: "summary",
-    title: "Intellivance — Custom Software Solutions",
+    card: "summary_large_image",
+    title: "Intellivance — Build the operating system behind growth",
     description:
-      "Custom software for work that does not fit in a box.",
+      "Strategy, systems, and hands-on execution for businesses in motion.",
+    images: ["/og.png"],
   },
   robots: {
     index: true,
@@ -58,9 +60,7 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: "https://intellivance.ai",
-  },
+  alternates: { canonical: "https://intellivance.ai" },
 };
 
 const organizationSchema = {
@@ -70,29 +70,21 @@ const organizationSchema = {
   url: "https://intellivance.ai",
   email: "hello@intellivance.ai",
   description:
-    "A custom software company designing and building web applications, internal tools, portals, integrations, and modern software systems.",
+    "An operating partner helping businesses strengthen revenue, operations, and technology through strategy, systems, and hands-on execution.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "sales",
     email: "hello@intellivance.ai",
-    url: "https://intellivance.ai/#contact",
+    url: "https://intellivance.ai/contact",
   },
   sameAs: ["https://www.linkedin.com/company/intellivance-ai/"],
   areaServed: "US",
   serviceType: [
-    "Custom Software Development",
-    "Web Application Development",
-    "Internal Tools",
-    "Software Integration",
-    "Software Modernization",
+    "Revenue and Growth Strategy",
+    "Business Operations Transformation",
+    "AI and Technology Enablement",
+    "Embedded Operating Leadership",
   ],
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "Intellivance",
-  url: "https://intellivance.ai",
 };
 
 export default function RootLayout({ children }) {
@@ -105,59 +97,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable}`}>
         {children}
-
         {gtagLoadId ? (
           <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gtagLoadId}`}
-              strategy="afterInteractive"
-            />
-            <Script
-              id="gtag-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  ${ga4Id ? `gtag('config', '${ga4Id}');` : ""}
-                  ${gadsId ? `gtag('config', '${gadsId}');` : ""}
-                `,
-              }}
-            />
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${gtagLoadId}`} strategy="afterInteractive" />
+            <Script id="gtag-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());${ga4Id ? `gtag('config','${ga4Id}');` : ""}${gadsId ? `gtag('config','${gadsId}');` : ""}` }} />
           </>
         ) : null}
-
-        {bingUetId ? (
-          <Script
-            id="uet-init"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t);n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||(o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)};var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i)})(window,document,"script","uetq",{ti:"${bingUetId}",enableAutoSpaTracking:true});`,
-            }}
-          />
-        ) : null}
-
-        {clarityId ? (
-          <Script
-            id="clarity-init"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","${clarityId}");`,
-            }}
-          />
-        ) : null}
+        {bingUetId ? <Script id="uet-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t);n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||(o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)};var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i)})(window,document,"script","uetq",{ti:"${bingUetId}",enableAutoSpaTracking:true});` }} /> : null}
+        {clarityId ? <Script id="clarity-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","${clarityId}");` }} /> : null}
       </body>
     </html>
   );

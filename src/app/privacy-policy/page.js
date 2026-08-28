@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
       <main className="legal-wrap">
         <Link className="text-link" href="/">← Back home</Link>
         <h1>Privacy policy</h1>
-        <div className="legal-date">Last updated July 14, 2026</div>
+        <div className="legal-date">Last updated August 28, 2026</div>
 
         <div className="legal-copy">
           <p>

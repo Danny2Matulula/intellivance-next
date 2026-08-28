@@ -45,7 +45,7 @@ export async function POST(request) {
       body: JSON.stringify({
         event: "project_inquiry",
         source: "Intellivance Website",
-        tags: ["website-software-inquiry"],
+        tags: ["website-operating-partner-inquiry"],
         fullName,
         email,
         company,

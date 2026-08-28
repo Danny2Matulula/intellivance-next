@@ -3,19 +3,20 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <div className="footer-brand">
-        <span>Intellivance</span>
-        <p>Custom software for work that does not fit in a box.</p>
+      <div className="footer-lead">
+        <span className="footer-wordmark">Intellivance</span>
+        <p>Operating partner for growth and transformation.</p>
       </div>
       <div className="footer-links">
         <div>
           <span>Explore</span>
-          <Link href="/#solutions">Solutions</Link>
-          <Link href="/#approach">Approach</Link>
-          <Link href="/#contact">Contact</Link>
+          <Link href="/practices">Practices</Link>
+          <Link href="/approach">How we work</Link>
+          <Link href="/about">About</Link>
         </div>
         <div>
           <span>Connect</span>
+          <Link href="/contact">Start a conversation</Link>
           <a href="mailto:hello@intellivance.ai">Email</a>
           <a href="https://www.linkedin.com/company/intellivance-ai/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
@@ -26,7 +27,7 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 Intellivance</span>
-        <span>Software solutions / United States</span>
+        <span>Strategy / systems / execution</span>
       </div>
     </footer>
   );

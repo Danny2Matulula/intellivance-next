@@ -1,20 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: process.cwd(),
+  },
   async redirects() {
     return [
       {
-        source: "/about",
-        destination: "/#studio",
-        permanent: false,
-      },
-      {
         source: "/assessment",
-        destination: "/#contact",
+        destination: "/contact",
         permanent: false,
       },
       {
         source: "/assessment/:path*",
-        destination: "/#contact",
+        destination: "/contact",
         permanent: false,
       },
       {

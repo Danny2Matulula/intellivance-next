@@ -1,15 +1,21 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function BrandMark() {
-  return (
-    <svg className="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-      <path d="M3 3h11v11H3zM18 3h11v11H18zM3 18h11v11H3z" fill="currentColor" />
-      <path d="M18 18h11v11H18z" fill="none" stroke="currentColor" strokeWidth="2" />
-    </svg>
-  );
+  return <span className="brand-mark" aria-hidden="true"><i /><i /><i /><i /></span>;
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const links = [
+    { href: "/", label: "Home" },
+    { href: "/practices", label: "Practices" },
+    { href: "/approach", label: "How we work" },
+    { href: "/about", label: "About" },
+  ];
+
   return (
     <header className="site-header">
       <nav className="site-nav" aria-label="Primary navigation">
@@ -17,13 +23,15 @@ export default function Navbar() {
           <BrandMark />
           <span>Intellivance</span>
         </Link>
-        <div className="nav-links">
-          <Link href="/#solutions">Solutions</Link>
-          <Link href="/#system-example">Example system</Link>
-          <Link href="/#approach">Approach</Link>
+        <div className="nav-links nav-tabs">
+          {links.map((link) => (
+            <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined}>
+              {link.label}
+            </Link>
+          ))}
         </div>
-        <Link className="nav-cta" href="/#contact">
-          Discuss a project <span aria-hidden="true">↓</span>
+        <Link className="nav-cta" href="/contact">
+          Let&apos;s talk <span aria-hidden="true">↗</span>
         </Link>
       </nav>
     </header>
