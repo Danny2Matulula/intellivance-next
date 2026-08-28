@@ -1,15 +1,15 @@
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Manrope, Newsreader } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
   display: "swap",
 });
@@ -40,7 +40,7 @@ export const metadata = {
     title: "Intellivance — Build the operating system behind growth",
     description:
       "Strategy, systems, and hands-on execution for businesses in motion.",
-    images: [{ url: "/og.png", width: 1734, height: 907, alt: "Intellivance — Build the operating system behind growth" }],
+    images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Intellivance — Build the operating system behind growth" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -99,7 +99,7 @@ export default function RootLayout({ children }) {
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </head>
-      <body className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${manrope.variable} ${newsreader.variable}`}>
         {children}
         {gtagLoadId ? (
           <>
