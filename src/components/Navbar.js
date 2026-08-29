@@ -30,8 +30,10 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-        <Link className="nav-cta" href="/contact">
-          Let&apos;s talk <span aria-hidden="true">↗</span>
+        <Link className="nav-cta" href="/contact" aria-label="Start a conversation">
+          <span className="nav-cta-label">Start a conversation</span>
+          <span className="nav-cta-short" aria-hidden="true">Start</span>
+          <span className="nav-cta-icon" aria-hidden="true">↗</span>
         </Link>
       </nav>
     </header>
