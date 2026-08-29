@@ -1,15 +1,9 @@
-import { DM_Sans, Sora } from "next/font/google";
+import { DM_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const sora = Sora({
-  variable: "--font-sora",
   subsets: ["latin"],
   display: "swap",
 });
@@ -99,7 +93,7 @@ export default function RootLayout({ children }) {
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
       </head>
-      <body className={`${dmSans.variable} ${sora.variable}`}>
+      <body className={dmSans.variable}>
         {children}
         {gtagLoadId ? (
           <>
