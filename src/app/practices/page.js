@@ -14,7 +14,7 @@ export default function PracticesPage() {
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a><Navbar />
       <main id="main-content">
-        <header className="page-hero"><div className="eyebrow">Practices</div><h1>Choose the constraint. <span>Not the buzzword.</span></h1><p>Tap between the three practice areas. Each starts with a business outcome and pulls in only the strategy, process, data, automation, or software the work actually requires.</p></header>
+        <header className="page-hero"><div className="eyebrow">Practices</div><h1>Business problems rarely <span>stay in one lane.</span></h1><p>Our practices connect revenue, operations, and technology, from the first decision through hands-on execution.</p></header>
         <section className="tabs-section section-pad"><PracticeTabs /></section>
         <section className="capability-stack section-pad">
           <div><div className="section-label">The capability stack</div><h2 className="section-title">Technology supports the operating model. It does not replace one.</h2></div>
